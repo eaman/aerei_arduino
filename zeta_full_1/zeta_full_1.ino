@@ -25,15 +25,16 @@ void setup() {
 }
 
 void loop() {
-  // Due LED con lampeggio alternato:
-  right.Blink();
-  left.Blink();
+
   thrIn = pulseIn(thrPin, HIGH, 25000);
-  thr = constrain(map(thrIn, 983, 2000, 0, 255),0,255) ;
+  thr = constrain(map(thrIn, 983, 2000, 0, 255), 0, 255) ;
+  // Due LED con lampeggio alternato:
+  right.Blink(1630 - 6 * thr );
+  left.Blink(1630 - 6 * thr );
   analogWrite(rtail, thr);
   analogWrite(ltail, thr);
   Serial.println(thrIn);
   Serial.print("\t thr:");
   Serial.println(thr);
-  
+
 }
