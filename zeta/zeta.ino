@@ -58,10 +58,10 @@ void loop() {
 
   switch (state) {
     case idle:
-      rwhite.UD(2);  // Utilizza il coseno
-      lwhite.UD(2);  // Bisognerebbe evitare di calcolarlo 4 volte uguale
-      ltp.UD(2);
-      rtp.UD(2);
+      rwhite.UD(2000);  // Utilizza il coseno
+      lwhite.UD(2000);  // Bisognerebbe evitare di calcolarlo 4 volte uguale
+      ltp.UD(2000);
+      rtp.UD(2000);
       break;
 
     case normal:
@@ -78,7 +78,7 @@ void loop() {
       right.Blink(1120 - 4 * thr );
       digitalWrite(ltail, !digitalRead(ltail));
       digitalWrite(3, !digitalRead(3));
-      delay(pausa);
+  
 
       left.Blink(1120 - 4 * thr );
       digitalWrite(rtail, !digitalRead(rtail));
