@@ -1,5 +1,5 @@
 /* Zeta test
- 
+
 Nota: rovedere i PWM per come calcolano le pause:
 non possono schendere sotto a 1ms
 */
@@ -18,6 +18,7 @@ Lampeggiatore left = 5;
 const byte rtail = 6;
 const byte ltail = 9;
 const byte thrPin = A3;
+byte pausa ;
 byte thr ;
 int thrIn ;
 
@@ -40,11 +41,11 @@ void setup() {
 
 void loop() {
 
-thrIn = pulseIn(thrPin, HIGH, 25000);
-thr = constrain(map(thrIn, 983, 2000, 0, 255), 0, 255) ;
-// Inserire necro delay
-delay(10); // Se si abilita il serial debug
-            // togliere il delay
+  thrIn = pulseIn(thrPin, HIGH, 25000);
+  thr = constrain(map(thrIn, 983, 2000, 0, 255), 0, 255) ;
+  // Inserire necro delay
+  delay(10); // Se si abilita il serial debug
+  // togliere il delay
 
   // FMS dispatcher
   if ( thr < 10 ) {
@@ -57,8 +58,8 @@ delay(10); // Se si abilita il serial debug
 
   switch (state) {
     case idle:
-      rwhite.UD(2);
-      lwhite.UD(2);
+      rwhite.UD(2);  // Utilizza il coseno
+      lwhite.UD(2);  // Bisognerebbe evitare di calcolarlo 4 volte uguale
       ltp.UD(2);
       rtp.UD(2);
       break;
@@ -67,17 +68,22 @@ delay(10); // Se si abilita il serial debug
       // Due LED con lampeggio alternato:
       right.Blink(1120 - 4 * thr );
       left.Blink(1120 - 4 * thr );
-      analogWrite(rtail, thr);
-      analogWrite(ltail, thr);
+      analogWrite(rtail, lum(thr));
+      analogWrite(ltail, lum(thr));
       break;
 
     case full:
+      pausa = random(30, 125);
       // Due LED con lampeggio alternato:
       right.Blink(1120 - 4 * thr );
+      digitalWrite(ltail, !digitalRead(ltail));
+      digitalWrite(3, !digitalRead(3));
+      delay(pausa);
+
       left.Blink(1120 - 4 * thr );
       digitalWrite(rtail, !digitalRead(rtail));
-      digitalWrite(ltail, !digitalRead(ltail));
-      delay(random(20, 100));
+      digitalWrite(5, !digitalRead(5));
+      delay(pausa);
       break;
   }
 

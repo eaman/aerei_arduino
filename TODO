@@ -1,2 +1,2 @@
-Cambiata la libreria common per i PWM con float,
-controllare lo stato idle.
+Creare un PWM con correzione di luminosita' su look table da 32 / 256 valori,
+eventualmente uno con coseno.
