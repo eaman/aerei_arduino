@@ -1,2 +1,7 @@
-Creare un PWM con correzione di luminosita' su look table da 32 / 256 valori,
+* Magnetometro: mettere l'attuale bianco / rosso in un oggetto con millis
+  e magari farlo andare con una strip binaca + rossa piuttosto che RGB
+* Magnetometro: fare un RGB completo con due colori per il volo laterale
+* Magnetometro: sopra piu' lampeggio mentre sale e pwm mentre scende?
+
+# Creare un PWM con correzione di luminosita' su look table da 32 / 256 valori,
 eventualmente uno con coseno.
