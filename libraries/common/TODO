@@ -1,0 +1,9 @@
+* inserire knight rider con millis
+* esempio con state machine per flight modes
+* battery voltage reader -> RGB
+** Schemi
+** descrizione componenti: transistor, array, stepdown
+** digital compass e RGB
+** barometer
+** 6 axis
+** Neopixel

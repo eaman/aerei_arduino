@@ -1,0 +1,11 @@
+RGBLed		KEYWORD1
+Red	 		KEYWORD2	
+Green 		KEYWORD2	
+Blue 		KEYWORD2	
+Magenta 	KEYWORD2		
+Cyano 		KEYWORD2	
+White 		KEYWORD2	
+Yellow		KEYWORD2	
+Off 		KEYWORD2	
+SetColor	KEYWORD2		
+brilla  	KEYWORD2		

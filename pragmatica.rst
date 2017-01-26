@@ -1,0 +1,94 @@
+Pragmatica della luminosita' applicata al volo notturno
+**********************************************************
+
+Elementi disponibili
+=====================
+
+
+* lampeggi
+* fade (up / down / UD)
+* accensioni / spegnimenti sequenziali di segmenti (knight rider)
+* RGB: quanto sopra + cambio dei colori
+
+
+Lampeggi
+------------
+Dettaglio:
+
+* velocita' tempi HI / LOW
+* Variazione tempo HI / tempo LOW
+* Lampeggi sequenziali con una pausa LOW piu' lunga
+
+Considerazioni: un lampeggio con rapporto H/L 1/3 dimostra lo stesso consumo di segmento sequenziale a 3 unita'.
+
+
+Fade
+-----
+
+* E' difficile distinguere tra un UP e un DOWN
+* Le variazioni della luminosita', sopratutto ai valori bassi, sono poco percettibili. Un movimento sequenziale con velocita' variabile e' piu' evidente
+
+
+RGB
+----
+
+* si puo' usare un solo PWM sul catodo comune per pilotare l'intensita' di tutti i colori
+
+
+Sequenziali
+--------------
+
+
+* il minimo per un sequenziale e' 3 segmenti
+* I segmenti posso essere ripetuti
+* I segmenti posso essere messi in mirror (es. dal centro all'esterno per le ali)
+* si puo' variare il rapporto tra accesi / spenti
+* I neopixels sono i migliori per i sequenziali
+
+
+Considerazioni
+================
+
+* Piu' il LED e' acceso (White per RGB) piu' consuma: limitare tempo e luminosita'
+* Il binaco freddo e' il LED piu' luminoso
+* il contrasto acceso / spento e' il piu' evidente, il fade e' piu' subdolo.
+* la visibilita' delle estremita' permette la massima visibilita' della sagoma e delle rotazioni.
+
+Pragmatica
+================
+
+* la maggior parte del tempo l'aereo e' visibile da sotto
+* se l'aereo e' in orientamento normale e' ok, se in volo rovesciato e' allarme
+  * per un acrobatico si potrebbe indicare ogni orientamento con RGB
+* se l'aereo e' pari e' ok, se picchia e' allarme, se cabra puo' essere segnalato.
+
+
+Lessico
+----------
+* il lampeggio indica allarme
+* il fade UD indica riposo  / stazionario
+* il sequenziale ha una connotazione di attivita' in corso
+
+
+Orientamento
+============
+
+Serve distinguere principalmente tra sopra e sotto, davanti e dietro. Secondariamente tra destra e sinistra.
+
+Quindi prevalentemente usare il bianco per il sotto e per le estremita'.
+Il rosso essendo il secondo colore predominante si puo' usare per il sopra.
+Verde e blu per i lati.
+
+Per dare un'indicazione della direzione usare segmenti sequenziali: sotto l'aereo per indicare il moto orizzontale
+
+
+Hardware
+=============
+
+Sensori
+-----------
+
+* per rilevare l'inclinazione basta una bussola HMC5883L
+* per rilevare lo stato della carica delle batterie bastano le entrate A. 5v di un Arduino
+* il throttle e' in genere l'unico che non prevede trim, per gli altri bisognerebbe compensare i trim con una autocalibrazione iniziale per fissare lo 0
+
