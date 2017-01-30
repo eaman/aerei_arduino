@@ -40,6 +40,7 @@ Sequenziali
 
 
 * il minimo per un sequenziale e' 3 segmenti
+  * questi possono essere messi in serie a 3 canali RGB
 * I segmenti posso essere ripetuti
 * I segmenti posso essere messi in mirror (es. dal centro all'esterno per le ali)
 * si puo' variare il rapporto tra accesi / spenti
@@ -92,3 +93,16 @@ Sensori
 * per rilevare lo stato della carica delle batterie bastano le entrate A. 5v di un Arduino
 * il throttle e' in genere l'unico che non prevede trim, per gli altri bisognerebbe compensare i trim con una autocalibrazione iniziale per fissare lo 0
 
+
+Hardware
+========
+
+* SMD 2835: 40-60mAh, 25lm, ~1e/m
+  * consigliato per il rosso, 120' di diffusione, ottimo dissipatore
+* SMD3528: 20mA, 6lm, 0.e/m
+  * Il bianco e' adeguato, 90' di diffusione, ottimo con alta densita'
+* SMD 5050: triplo chip, adatto per RGB, molto calore. 
+
+Links:
+
+* https://www.flexfireleds.com/pages/Comparison-between-3528-LEDs-and-5050-LEDs.html

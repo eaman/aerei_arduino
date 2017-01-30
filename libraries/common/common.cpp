@@ -9,12 +9,27 @@
 
 //////////////////////
 // RGB LED
-// Common anode
+// Common anode / cat
 
-RGBLed::RGBLed(byte pinR, byte pinG, byte pinB) {
+RGBLed::RGBLed(byte pinR, byte pinG, byte pinB) {    
+    // Per un common catodo, valore max / min invertiti
       redPin    = pinR ;
       greenPin  = pinG ;
       bluePin   = pinB ;
+      common    = 0 ;
+      
+      // Equvalente del Setup() per inizializzare i PIN
+      pinMode(redPin, OUTPUT);
+      pinMode(greenPin, OUTPUT);
+      pinMode(greenPin, OUTPUT);
+};
+
+RGBLed::RGBLed(byte pinR, byte pinG, byte pinB, byte com) {
+    // Per un common anode, valore max / min normali
+      redPin    = pinR ;
+      greenPin  = pinG ;
+      bluePin   = pinB ;
+      common    = com ;
 
       // Equvalente del Setup() per inizializzare i PIN
       pinMode(redPin, OUTPUT);
@@ -24,9 +39,9 @@ RGBLed::RGBLed(byte pinR, byte pinG, byte pinB) {
 
 void RGBLed::SetColor (byte r, byte g, byte b) {
 // Imposta il colore di un LED RGB
-      analogWrite(redPin,   r);
-      analogWrite(greenPin, g);
-      analogWrite(bluePin,  b);
+      analogWrite(redPin,   common - r);
+      analogWrite(greenPin, common - g);
+      analogWrite(bluePin,  common - b);
     };
 
 void RGBLed::Red () {
@@ -134,6 +149,24 @@ void Lampeggiatore::Blink(long up, long down) {
     digitalWrite(ledPin, ledState);
 };
 
+void Lampeggiatore::High() {
+    // Accende il LED
+
+    digitalWrite(ledPin, HIGH);
+}
+
+void Lampeggiatore::Low() {
+    // Spegne  il LED
+
+    digitalWrite(ledPin, LOW);
+}
+
+void Lampeggiatore::Swap() {
+    // Inverte lo stato del LED
+
+    digitalWrite(ledPin, !digitalRead(ledPin)); 
+}
+
 /////////////////////////////////////
 // Pwm
 // Constructor
@@ -150,7 +183,7 @@ Pwm::Pwm(int pin)
 };
 
 void Pwm::Up(long speed) {
-    // Aumenta progressivamente la luminosita' usanndo millis()
+    // Aumenta linearmente la luminosita' usanndo millis()
     // quindi senza bloccare il processore
     // Viene usato un float, in alternativa un coseno
 
@@ -162,8 +195,21 @@ void Pwm::Up(long speed) {
     };
 }
 
+void Pwm::lUp(long speed) {
+    // Aumenta usanndo millis() con correzione luminosita' LED
+    // quindi senza bloccare il processore
+    // Viene usato un float, in alternativa un coseno
+
+    if (millis() != previousMillis)  { // si potrebbe togliere
+            brightness = 255.0 /(float)speed * millis() ;
+            analogWrite(ledPin, lum(brightness));
+
+        previousMillis = millis();
+    };
+}
+
 void Pwm::Down(long speed ) {
-    // Riduce progressivamente la luminosita' usanndo millis()
+    // Riduce linearmente la luminosita' usanndo millis()
     // quindi senza bloccare il processore
 
     if (millis() != previousMillis)  {
@@ -174,10 +220,33 @@ void Pwm::Down(long speed ) {
     };
 }
 
+void Pwm::lDown(long speed ) {
+    // Riduce  usanndo millis() con correzione della luminosita'
+    // quindi senza bloccare il processore
+
+    if (millis() != previousMillis)  {
+            brightness = 255 - 255.0 /(float)speed * millis() ;
+            analogWrite(ledPin, lum(brightness));
+
+        previousMillis = millis();
+    };
+}
+
 void Pwm::UD(long speed ) {
     // Aumenta e riduce in sequenza la luminosita' usanndo millis()
     brightness = 128 + 127 * cos(2 * PI / speed * millis());
     analogWrite(ledPin, brightness);  
+}
+
+void Pwm::Set(byte brightness) {
+    // Imposta il valore del PWM 
+    analogWrite(ledPin, brightness);  
+}
+
+
+void Pwm::lSet(byte brightness) {
+    // Imposta il valore del PWM 
+    analogWrite(ledPin, lum(brightness));  
 }
 
 

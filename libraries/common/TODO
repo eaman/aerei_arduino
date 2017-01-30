@@ -1,8 +1,10 @@
-* inserire knight rider con millis
+
+*  aggiungere un displace temporale ai blink / pwm
+* Flasher con sequenza arbitraria di lampeggio
+* oggetti che lavorino contemporaneamente su piu' PIN
+* Link a Schemi / Schemi
 * esempio con state machine per flight modes
-* battery voltage reader -> RGB
-** Schemi
-** descrizione componenti: transistor, array, stepdown
+** battery voltage reader -> RGB
 ** digital compass e RGB
 ** barometer
 ** 6 axis

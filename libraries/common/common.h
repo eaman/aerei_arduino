@@ -43,9 +43,11 @@ class RGBLed {
     byte redValue ;
     byte greenValue ;
     byte blueValue ;
+    byte common ;
 
   public:
     RGBLed (byte pinR, byte pinG, byte pinB) ;
+    RGBLed (byte pinR, byte pinG, byte pinB, byte com) ;
 	void SetColor (byte r, byte g, byte b) ;
 	void Red ();
     void Green ();
@@ -71,9 +73,12 @@ class Lampeggiatore {
 public:
     Lampeggiatore(int pin);
     void Invert();   // Inverte il lampeggio 
-    void Blink(); 	// Lampeggia ogni 500ms
+    void Blink(); 	 // Lampeggia ogni 500ms
     void Blink(long interval); // Lampeggia inpostando l'intervallo
     void Blink(long on, long down); // Imposta il tempo acceso e il tempo spento
+    void High();    // Accende il LED
+    void Low();     // Spegne il LED
+    void Swap();    // Inverte lo stato del LED
 };
 
 
@@ -89,14 +94,18 @@ class Pwm {
     int ledPin ;           // il numero del LED pin
     int speed ;            // velocita' del ciclo in ms
     unsigned long previousMillis ;  //precedente cambio di stato
-    byte increment ;        // aumenta brighteness nel loop UD
+    byte increment ;      // aumenta brighteness nel loop UD
 
     // Constructor: come viene instanziato un oggetto facente parte della classe
 public:
     Pwm(int pin);  // numero di pin, velocita' di ciclo
     void Up(long speed);
+    void lUp(long speed);
     void Down(long speed);
+    void lDown(long speed);
     void UD(long speed);
+    void Set(byte brighteness);
+    void lSet(byte brighteness);
     byte brightness  ;      // luminostia' iniziale
 };
 

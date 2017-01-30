@@ -27,6 +27,7 @@ Pwm lwhite = 5;
 Pwm rtp = 6 ;
 Pwm ltp = 9 ;
 
+RGBLed rgb(7,8,4,255);
 
 void setup() {
   left.Invert() ; // Parte da stato invertito rispetto al default
@@ -40,6 +41,7 @@ void setup() {
 }
 
 void loop() {
+
 
   thrIn = pulseIn(thrPin, HIGH, 25000);
   thr = constrain(map(thrIn, 983, 2000, 0, 255), 0, 255) ;
@@ -58,6 +60,7 @@ void loop() {
 
   switch (state) {
     case idle:
+    rgb.Red();
       rwhite.UD(2000);  // Utilizza il coseno
       lwhite.UD(2000);  // Bisognerebbe evitare di calcolarlo 4 volte uguale
       ltp.UD(2000);
@@ -65,6 +68,7 @@ void loop() {
       break;
 
     case normal:
+    rgb.Green();
       // Due LED con lampeggio alternato:
       right.Blink(1120 - 4 * thr );
       left.Blink(1120 - 4 * thr );
@@ -73,6 +77,7 @@ void loop() {
       break;
 
     case full:
+    rgb.Blue();
       pausa = random(30, 125);
       // Due LED con lampeggio alternato:
       right.Blink(1120 - 4 * thr );

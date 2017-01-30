@@ -11,15 +11,13 @@ void setup() {
 }
 
 // Instanziamo un LED
-RGBLed led(11, 10, 9); //Istanziamo un oggetto led facente parte
-                       // della classe RGBLed
+RGBLed led(11, 10,9); //Istanziamo un oggetto led (common catodo)
+// facente parte della classe RGBLed
+//RGBLed led(10,9,11,255); // Inizializzazione Common anodo, valori invertiti
 
 void loop() {
-  led.Red();
-  delay(1000);
-  led.SetColor(255, 0, 255) ; // Mettiamo il LED in Green
-  delay(1000);
-  led.Off();
+  led.White();
+
 }
 
 /* Colori disponibili:

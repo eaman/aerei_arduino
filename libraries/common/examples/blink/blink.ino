@@ -19,7 +19,10 @@ led.Invert() ;  // Opzionale: inverte l'ordine del lampeggio da
 }
 
 void loop() {
-  led.Blink();  // Lampeggia con un default di 1sec (0.5 HI 0.5 LOW) 
-  led.Blink(500);  // Lampeggia ogni 500ms
-  led.Blink(500,200);  // Imposta il tempo acceso e il tempo spento
+  led.Blink();    // Lampeggia con un default di 1sec (0.5 HI 0.5 LOW) 
+//  led.Blink(500);  // Lampeggia ogni 500ms
+//  led.Blink(500,200);  // Imposta il tempo acceso e il tempo spento
+//  led.High();   // Stato su HI
+//  led.Low();    // Stato su LOW
+//  led.Swap();   // Inverte lo Stato
 }
