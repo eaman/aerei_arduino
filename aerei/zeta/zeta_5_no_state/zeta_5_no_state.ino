@@ -1,6 +1,6 @@
-/* Zeta test
- *  le funzioni finali sono da controllare
-
+/* Zeta senza state machine
+ 
+Gestione del Throttle con ciclo condizionale.
 
 */
 
@@ -15,12 +15,6 @@ const byte ltail = 9;
 const byte thrPin = A3;
 byte thr ;
 int thrIn ;
-
-long previousMillisA = 0;
-long previousMillisB = 0;
-
-unsigned long intervalA = 200;
-unsigned long intervalB = 200;
 
 void setup() {
   left.Invert() ; // Parte da stato invertito rispetto al default
@@ -61,34 +55,4 @@ digitalWrite(5, 1);
   Serial.print("\t thr:");
   Serial.println(thr);
 
-}
-
-
-// Functions
-// TODO: non funzionano :(
-
-
-void lampA () {
-  // Illumina la coda r a un tempo random
-  if (millis() - previousMillisA > intervalA) {
-    previousMillisA = millis();
-    intervalA = random(50, 255);
-    digitalWrite(rtail, !digitalRead(rtail));
-    // Leggiamo direttamente il registro di ledB e scriviamo il suo opposto,
-    // questo ci permette di non dover avere una variabile per tracciare lo stato.
-
-  }
-}
-
-void lampB () {
-  // Illumina la coda l a un tempo random
-
-  if (millis() - previousMillisB > intervalB) {
-    previousMillisB = millis();
-    intervalB = random(50, 255);
-    digitalWrite(ltail, !digitalRead(ltail));
-    // Leggiamo direttamente il registro di ledB e scriviamo il suo opposto,
-    // questo ci permette di non dover avere una variabile per tracciare lo stato.
-
-  }
 }

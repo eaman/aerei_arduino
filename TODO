@@ -1,3 +1,9 @@
+* Esempi:
+    * FSM con gestione degli stati interna (da Zeta)
+    * Sequenza di LED
+    * FSM gerarchica: test iniziale, ON / OFF di tutti lo sketch, fly modes | demo 
+
+
 * Magnetometro: mettere l'attuale bianco / rosso in un oggetto con millis
   e magari farlo andare con una strip binaca + rossa piuttosto che RGB
 * Magnetometro: fare un RGB completo con due colori per il volo laterale

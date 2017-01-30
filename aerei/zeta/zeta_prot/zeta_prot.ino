@@ -1,6 +1,6 @@
-/* Zeta test
- *  le funzioni finali sono da controllare
+/* Zeta prototipo
 
+   Sketch da breadboard, il throttle e' simulato con un potenziometro.
 
 */
 

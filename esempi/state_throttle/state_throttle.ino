@@ -2,6 +2,8 @@
 
 Idle, throttle e averburner effect basati sono sul canale throttle.   
 
+FSM con dispatcher esterno.
+
 
 */
 
