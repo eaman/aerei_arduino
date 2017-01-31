@@ -20,8 +20,10 @@ Aggiornamenti
 
 Per aggiornare all'ultima versione::
 
-    cd ~/aerei_arduino
+    cd ~/aerei
     git pull
 
 Download manuale:
-http://git.andreamanni.com/web?p=aerei_arduino;a=snapshot;h=HEAD;sf=tgz    
+http://git.andreamanni.com/web?p=aerei;a=snapshot;h=HEAD;sf=tgz    
+
+Interfaccia Web: http://git.andreamanni.com/
