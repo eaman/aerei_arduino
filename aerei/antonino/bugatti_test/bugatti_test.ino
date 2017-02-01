@@ -29,11 +29,17 @@ void setup() {
   // per avere 2 LED che lampeggiano alternativamente
 
   randomSeed(analogRead(0));
+
+  // Test iniziale dei LED per verifica contatti:
+  left.High();
+  right.High();
+  motore.Set(255);
+  delay(4000);
 }
 
 void loop() {
-    right.Blink();
-    left.Blink();
-    gsotto.UD(2000);
-    motore.UD(2000);
+  right.Blink();
+  left.Blink();
+  gsotto.UD(2000);
+  motore.UD(2000);
 }

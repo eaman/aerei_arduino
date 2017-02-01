@@ -1,6 +1,10 @@
 /*  Common
  *
  *  Oggetti di uso comune
+ *  Autore: Andrea Manni
+ *
+ *  Link: http://git.andreamanni.com/
+ *  Licenza:    GPLv3
  */
 
 #include "Arduino.h"
@@ -107,7 +111,7 @@ void Lampeggiatore::Invert() {
 void Lampeggiatore::Blink() {
     // Illumina il led a 500ms
 
-    if(millis() - previousMillis > interval) {
+    if(millis() + shift - previousMillis > interval) {
         // save the last time you blinked the LED
         previousMillis = millis();
 
@@ -118,10 +122,11 @@ void Lampeggiatore::Blink() {
     digitalWrite(ledPin, ledState);
 };
 
-void Lampeggiatore::Blink(long time) {
+void Lampeggiatore::Blink(long time, long drift ) {
     // Illumina il led secondo un intervallo passato come argomento
 
-    if(millis() - previousMillis > time) {
+        shift = drift;
+    if(millis() + shift - previousMillis > time) {
         // save the last time you blinked the LED
         previousMillis = millis();
 
@@ -132,15 +137,16 @@ void Lampeggiatore::Blink(long time) {
     digitalWrite(ledPin, ledState);
 };
 
-void Lampeggiatore::Blink(long up, long down) {
+void Lampeggiatore::Blink(long up, long down, long drift ) {
     // Illumina il ledB precisando ontime e downtime
 
-    if((ledState == HIGH)&& (millis() - previousMillis > up)) {
+        shift = drift;
+    if((ledState == HIGH)&& (millis() + shift - previousMillis > up)) {
     // save the last time you blinked the LED
     	previousMillis = millis();
         ledState = LOW  ;
     }
-    else if((ledState == LOW)&& (millis() - previousMillis > down)) {
+    else if((ledState == LOW)&& (millis() + shift - previousMillis > down)) {
     	previousMillis = millis();
         ledState = HIGH  ;
     }
@@ -182,59 +188,64 @@ Pwm::Pwm(int pin)
     increment = 1;
 };
 
-void Pwm::Up(long speed) {
+void Pwm::Up(long speed, long drift) {
     // Aumenta linearmente la luminosita' usanndo millis()
     // quindi senza bloccare il processore
     // Viene usato un float, in alternativa un coseno
 
     if (millis() != previousMillis)  { // si potrebbe togliere
-            brightness = 255.0 /(float)speed * millis() ;
+        shift = drift;
+            brightness = 255.0 /(float)speed * (millis() + shift);
             analogWrite(ledPin, brightness);
 
         previousMillis = millis();
     };
 }
 
-void Pwm::lUp(long speed) {
+void Pwm::lUp(long speed, long drift) {
     // Aumenta usanndo millis() con correzione luminosita' LED
     // quindi senza bloccare il processore
     // Viene usato un float, in alternativa un coseno
 
     if (millis() != previousMillis)  { // si potrebbe togliere
-            brightness = 255.0 /(float)speed * millis() ;
+        shift = drift;
+            brightness = 255.0 /(float)speed * (millis() + shift);
             analogWrite(ledPin, lum(brightness));
 
         previousMillis = millis();
     };
 }
 
-void Pwm::Down(long speed ) {
+void Pwm::Down(long speed, long drift) {
     // Riduce linearmente la luminosita' usanndo millis()
     // quindi senza bloccare il processore
 
     if (millis() != previousMillis)  {
-            brightness = 255 - 255.0 /(float)speed * millis() ;
+        shift = drift;
+            brightness = 255 - 255.0 /(float)speed * (millis() + shift) ;
             analogWrite(ledPin, brightness);
 
         previousMillis = millis();
     };
 }
 
-void Pwm::lDown(long speed ) {
+void Pwm::lDown(long speed, long drift) {
     // Riduce  usanndo millis() con correzione della luminosita'
     // quindi senza bloccare il processore
 
     if (millis() != previousMillis)  {
-            brightness = 255 - 255.0 /(float)speed * millis() ;
+        shift = drift;
+            brightness = 255 - 255.0 /(float)speed * (millis() + shift) ;
             analogWrite(ledPin, lum(brightness));
 
         previousMillis = millis();
     };
 }
 
-void Pwm::UD(long speed ) {
+void Pwm::UD(long speed, long drift ) {
     // Aumenta e riduce in sequenza la luminosita' usanndo millis()
-    brightness = 128 + 127 * cos(2 * PI / speed * millis());
+        shift = drift;
+    brightness = 128 + 127 * cos(2 * PI / speed * (millis() + shift));
     analogWrite(ledPin, brightness);  
 }
 

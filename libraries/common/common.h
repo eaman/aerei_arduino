@@ -3,6 +3,11 @@
 
   Oggetti comuni
 
+Autore: Andrea Manni
+
+Link: http://git.andreamanni.com/
+Licenza:    GPLv3
+
 */
 
 #include "Arduino.h"
@@ -12,7 +17,7 @@
 #define common_h
 
 // Variabili
-const uint8_t BCORRECT[256] PROGMEM = { // Tabella per correzione luminosita' PWM
+const uint8_t BCORRECT[256] PROGMEM = { // Tabella per correzione luminosita' LED a 8bit
    0,0,0,1,1,1,2,1,1,2,1,2,2,2,3,2,
    2,2,3,2,2,3,2,3,3,3,4,3,3,3,4,4,
    4,5,4,5,4,5,5,6,5,5,6,5,6,6,7,6,
@@ -74,11 +79,12 @@ public:
     Lampeggiatore(int pin);
     void Invert();   // Inverte il lampeggio 
     void Blink(); 	 // Lampeggia ogni 500ms
-    void Blink(long interval); // Lampeggia inpostando l'intervallo
-    void Blink(long on, long down); // Imposta il tempo acceso e il tempo spento
+    void Blink(long interval, long drift = 0); // Lampeggia inpostando l'intervallo
+    void Blink(long on, long down, long drift); // Imposta il tempo acceso e il tempo spento
     void High();    // Accende il LED
     void Low();     // Spegne il LED
     void Swap();    // Inverte lo stato del LED
+    unsigned long shift ;  // anticipo / ritardo
 };
 
 
@@ -94,19 +100,20 @@ class Pwm {
     int ledPin ;           // il numero del LED pin
     int speed ;            // velocita' del ciclo in ms
     unsigned long previousMillis ;  //precedente cambio di stato
-    byte increment ;      // aumenta brighteness nel loop UD
+    byte increment ;       // aumenta brighteness nel loop UD
 
     // Constructor: come viene instanziato un oggetto facente parte della classe
 public:
     Pwm(int pin);  // numero di pin, velocita' di ciclo
-    void Up(long speed);
-    void lUp(long speed);
-    void Down(long speed);
-    void lDown(long speed);
-    void UD(long speed);
+    void Up(long speed, long drift = 0);
+    void lUp(long speed, long drift = 0);
+    void Down(long speed, long drift = 0);
+    void lDown(long speed, long drift = 0);
+    void UD(long speed, long drift = 0);
     void Set(byte brighteness);
     void lSet(byte brighteness);
     byte brightness  ;      // luminostia' iniziale
+    unsigned long shift ;  // anticipo / ritardo
 };
 
 

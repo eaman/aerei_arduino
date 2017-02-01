@@ -38,6 +38,13 @@ void setup() {
   // Serial.begin(9600);
 
   randomSeed(analogRead(0));
+    // Test iniziale dei LED per verifica contatti:
+  left.High();
+  right.High();
+  rgb.White();
+  rtp.Set(255);
+  ltp.Set(255);
+  delay(4000);
 }
 
 void loop() {
@@ -60,15 +67,17 @@ void loop() {
 
   switch (state) {
     case idle:
-    rgb.Red();
+    rgb.Green();
+    
       rwhite.UD(2000);  // Utilizza il coseno
       lwhite.UD(2000);  // Bisognerebbe evitare di calcolarlo 4 volte uguale
-      ltp.UD(2000);
-      rtp.UD(2000);
+      ltp.shift = 500;
+      ltp.lUp(1000);
+      rtp.lUp(1000);
       break;
 
     case normal:
-    rgb.Green();
+    rgb.Blue();
       // Due LED con lampeggio alternato:
       right.Blink(1120 - 4 * thr );
       left.Blink(1120 - 4 * thr );
@@ -77,7 +86,7 @@ void loop() {
       break;
 
     case full:
-    rgb.Blue();
+    rgb.Red();
       pausa = random(30, 125);
       // Due LED con lampeggio alternato:
       right.Blink(1120 - 4 * thr );

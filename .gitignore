@@ -1,0 +1,10 @@
+TODO
+push.sh
+libraries/aero/
+*.swp
+*Makefile
+*tags
+libraries/LedControl/
+libraries/FreeRTOS/
+libraries/Adafruit_HMC5883_Unified/
+script.sh

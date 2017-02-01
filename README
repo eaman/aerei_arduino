@@ -2,7 +2,7 @@ Luci per Aerei con Arduino
 *******************************
 
 Sketches e librerie per la gestione delle luci di aeromodelli RC con
-microcontroller compatibili con *arduino
+microcontroller compatibili con \*arduino
 
 
 Setup
@@ -18,12 +18,20 @@ attuale.
 Aggiornamenti
 ===============
 
+Download:
+    git clone git://git.andreamanni.com/aerei
+
 Per aggiornare all'ultima versione::
 
     cd ~/aerei
     git pull
 
 Download manuale:
-http://git.andreamanni.com/web?p=aerei;a=snapshot;h=HEAD;sf=tgz    
+    http://git.andreamanni.com/web?p=aerei;a=snapshot;h=HEAD;sf=tgz    
 
-Interfaccia Web: http://git.andreamanni.com/
+Interfaccia Web:
+    http://git.andreamanni.com/
+
+Discussioni:
+    https://forum.piffa.net/viewforum.php?f=4&sid=aef380599d890d6e7b9f92743fab9d7e
+    

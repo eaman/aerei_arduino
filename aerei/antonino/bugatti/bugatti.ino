@@ -36,6 +36,13 @@ void setup() {
   // per avere 2 LED che lampeggiano alternativamente
 
   randomSeed(analogRead(0));
+
+  // Test iniziale dei LED per verifica contatti:
+  left.High();
+  right.High();
+  sotto.White();
+  motore.Set(255);
+  delay(4000);
 }
 
 void loop() {
@@ -45,7 +52,7 @@ void loop() {
   thr = map(thrIn, 983, 2000, 0, 255);
     
 // Gestione throttle
-  if (thr > 0 && thr < 15) {
+  if (thr >= 0 && thr < 15) {
     // IDLE
 
     right.Blink();
