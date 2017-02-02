@@ -12,8 +12,10 @@ enum  { // Stati della FMS
 } state  ;
 
 // Due LED con lampeggio alternato:
-Lampeggiatore right = 3;
+Lampeggiatore right = 13;
 Pwm rpwm = 3;
+
+// Variabili
 const byte thrPin = A3;
 byte thr ;
 int thrIn ;
@@ -21,15 +23,21 @@ int thrIn ;
 
 
 void setup() {
- // Serial.begin(9600);
+  Serial.begin(9600);
   pinMode(A3, INPUT);
   randomSeed(analogRead(0));
 }
 
 void loop() {
 
-  thrIn = analogRead(3);
-  thr = constrain(thrIn / 4 , 0, 255) ;
+  // Utilizzando un potenziometro
+  //  thrIn = analogRead(3);
+  //  thr = constrain(thrIn / 4 , 0, 255) ;
+
+  // Utilizzando una RX
+  thrIn = pulseIn(thrPin, HIGH, 25000);
+  // Hint: thrIn andrebbe calibrato son un Serial.write
+  thr = constrain(map(thrIn, 960, 2000, 0, 255), 0, 255);
 
   // FMS dispatcher
   if ( thr < 10 ) {
@@ -42,26 +50,32 @@ void loop() {
 
   switch (state) {
     case idle:
-     // digitalWrite(3,LOW);
-rpwm.Up(1000);
+      rpwm.UD(2000);
+      right.Blink();
       break;
 
     case normal:
       // Due LED con lampeggio alternato:
       right.Blink(1120 - 4 * thr );
+      rpwm.lSet(thr);
       break;
 
     case full:
       digitalWrite(3, HIGH);
-
+      rpwm.Set(0);
+      right.Swap();
+      delay(50);
+      rpwm.Set(255);
+      right.Swap();
+      delay(50);
       break;
   }
 
 
-//  Serial.print(thrIn);
-//  Serial.print("\t thr:");
-//  Serial.print(thr);
-//  Serial.print("\t state:");
-//  Serial.println(state);
-//  delay(200);
+  Serial.print(thrIn);
+  Serial.print("\t thr:");
+  Serial.print(thr);
+  Serial.print("\t state:");
+  Serial.println(state);
+  //  delay(200);
 }
