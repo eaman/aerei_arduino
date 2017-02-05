@@ -132,6 +132,10 @@ sxin:
             ailstate = middle;
         }
         else if (ail < mid_point - deviation) {
+<<<<<<< HEAD
+            now = millis() ;
+=======
+>>>>>>> 5b38ddfa00f7c92607b220adc874107fba2bda0e
             ailstate = dxin;
         } ;
         break;
@@ -152,6 +156,10 @@ dxin:
             ailstate = middle;
         }
         else if (ail > mid_point + deviation) {
+<<<<<<< HEAD
+            now = millis() ;
+=======
+>>>>>>> 5b38ddfa00f7c92607b220adc874107fba2bda0e
             ailstate = dxin;
         } ;
         break;
