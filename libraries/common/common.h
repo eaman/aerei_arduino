@@ -154,6 +154,10 @@ class Sequenza {
 // Funzioni
 
 void brilla(byte pin, int velocita = 200) ;
-#endif
 
 byte lum(byte val);
+
+int calibraTrim(int pin, byte ledPin = 13);
+
+
+#endif

@@ -355,3 +355,39 @@ byte lum(byte val) {
     // storata in SRAM
 return pgm_read_byte_near(BCORRECT + val);
 };
+
+
+int calibraTrim(int pin, byte ledPin) {
+/* START Calibrazione TRIM canale:
+   Lettura di 10 smaple
+   calcolo del valore medio esclusi gli 0 
+
+   I canali come alettoni / elevatore possono avere un TRIM
+   (generalmente il throttle non ha un TRIM impostato),
+   questa funzione nel setup serve per trovare il punto medio
+   all'avvio dello sketch.
+ */
+    byte a 		= 0;
+	int ail 	= 0;
+	int ailIn 	= 0;
+    Serial.println(">> Calibrazione: ");
+    while (a < 10) {
+        ailIn = pulseIn(pin, HIGH, 25000);
+        if (ailIn != 0 ) {
+            ail = ail + ailIn ;
+            a++ ;
+            Serial.print(a);
+            Serial.print(": ");
+            Serial.println(ail);
+            digitalWrite(ledPin, !digitalRead(ledPin));
+            delay(10);
+        }
+    }
+    Serial.print(">> Fine Calibrazione: ");
+    Serial.print(ail / 10);
+    Serial.println("--");
+	Serial.flush() ;
+    return(ail / 10) ;
+// END calibrazione
+}
+

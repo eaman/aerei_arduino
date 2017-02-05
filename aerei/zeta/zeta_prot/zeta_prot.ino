@@ -1,6 +1,7 @@
 /* Zeta prototipo
 
-   Sketch da breadboard, il throttle e' simulato con un potenziometro.
+   Sketch da breadboard, il throttle e' simulato con un potenziometro
+   o con una RX.
 
 */
 

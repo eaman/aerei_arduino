@@ -1,6 +1,6 @@
-/* Zeta test
+/* Zeta
 
-Nota: rovedere i PWM per come calcolano le pause:
+Nota: rivedere i PWM per come calcolano le pause:
 non possono schendere sotto a 1ms
 */
 
@@ -13,18 +13,18 @@ enum states_available { // Stati della FMS
 states_available state  ;
 
 // Due LED con lampeggio alternato:
-Lampeggiatore right = 3;
+Lampeggiatore right = 3; // Lampeggiatori superiori a lato fusoliera
 Lampeggiatore left = 5;
-const byte rtail = 6;
+const byte rtail = 6; // Luci del motore posteriore
 const byte ltail = 9;
-const byte thrPin = A3;
+const byte thrPin = A3; 
 byte pausa ;
 byte thr ;
 int thrIn ;
 
-Pwm rwhite = 3;
-Pwm lwhite = 5;
-Pwm rtp = 6 ;
+Pwm rwhite = 3; // PWM sui lampeggiatori
+Pwm lwhite = 5; 
+Pwm rtp = 6 ;   // PWM sulla coda
 Pwm ltp = 9 ;
 
 RGBLed rgb(7,8,4,255);
@@ -52,7 +52,6 @@ void loop() {
 
   thrIn = pulseIn(thrPin, HIGH, 25000);
   thr = constrain(map(thrIn, 983, 2000, 0, 255), 0, 255) ;
-  // Inserire necro delay
   delay(10); // Se si abilita il serial debug
   // togliere il delay
 
@@ -70,7 +69,7 @@ void loop() {
     rgb.Green();
     
       rwhite.UD(2000);  // Utilizza il coseno
-      lwhite.UD(2000);  // Bisognerebbe evitare di calcolarlo 4 volte uguale
+      lwhite.UD(2000);  // Bisognerebbe evitare di calcolarli 4 volte uguale
       ltp.shift = 500;
       ltp.lUp(1000);
       rtp.lUp(1000);
