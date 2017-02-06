@@ -81,7 +81,7 @@ void setup() {
 
     // Funzione relativa a calibrazione:
 //mid_point =  calibraTrim(ailPin) ; // Pin a cui e' collegato il canale
-//mid_point =  calibraTrim(aliPin,11) ; // + LED di servizio per calibrazione
+//mid_point =  calibraTrim(aliPin,11) ; // + LED di servizio per monitor calibrazione
 }
 
 void loop() {

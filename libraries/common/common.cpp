@@ -15,78 +15,78 @@
 // RGB LED
 // Common anode / cat
 
-RGBLed::RGBLed(byte pinR, byte pinG, byte pinB) {    
+RGBLed::RGBLed(byte pinR, byte pinG, byte pinB) {
     // Per un common catodo, valore max / min invertiti
-      redPin    = pinR ;
-      greenPin  = pinG ;
-      bluePin   = pinB ;
-      common    = 0 ;
-      
-      // Equvalente del Setup() per inizializzare i PIN
-      pinMode(redPin, OUTPUT);
-      pinMode(greenPin, OUTPUT);
-      pinMode(greenPin, OUTPUT);
+    redPin    = pinR ;
+    greenPin  = pinG ;
+    bluePin   = pinB ;
+    common    = 0 ;
+
+    // Equvalente del Setup() per inizializzare i PIN
+    pinMode(redPin, OUTPUT);
+    pinMode(greenPin, OUTPUT);
+    pinMode(greenPin, OUTPUT);
 };
 
 RGBLed::RGBLed(byte pinR, byte pinG, byte pinB, byte com) {
     // Per un common anode, valore max / min normali
-      redPin    = pinR ;
-      greenPin  = pinG ;
-      bluePin   = pinB ;
-      common    = com ;
+    redPin    = pinR ;
+    greenPin  = pinG ;
+    bluePin   = pinB ;
+    common    = com ;
 
-      // Equvalente del Setup() per inizializzare i PIN
-      pinMode(redPin, OUTPUT);
-      pinMode(greenPin, OUTPUT);
-      pinMode(greenPin, OUTPUT);
+    // Equvalente del Setup() per inizializzare i PIN
+    pinMode(redPin, OUTPUT);
+    pinMode(greenPin, OUTPUT);
+    pinMode(greenPin, OUTPUT);
 };
 
 void RGBLed::SetColor (byte r, byte g, byte b) {
 // Imposta il colore di un LED RGB
-      analogWrite(redPin,   common - r);
-      analogWrite(greenPin, common - g);
-      analogWrite(bluePin,  common - b);
-    };
+    analogWrite(redPin,   common - r);
+    analogWrite(greenPin, common - g);
+    analogWrite(bluePin,  common - b);
+};
 
 void RGBLed::Red () {
 // Accende il LED di rosso
-      SetColor(0,255,255);
-    };
+    SetColor(0,255,255);
+};
 
 void RGBLed::Green () {
 // Accende il LED di verde
-      SetColor(255,0,255);
-    };
+    SetColor(255,0,255);
+};
 
 void RGBLed::Blue () {
 // Accende il LED di blu
-      SetColor(255,255,0);
-    };
+    SetColor(255,255,0);
+};
 
 void RGBLed::Magenta () {
 // Accende il LED di magenta
-      SetColor(0,255,0);
-    };
+    SetColor(0,255,0);
+};
 
 void RGBLed::Cyano () {
 // Accende il LED di Cyano
-      SetColor(255,0,0);
-    };
+    SetColor(255,0,0);
+};
 
 void RGBLed::Yellow () {
 // Accende il LED di giallo
-      SetColor(0,0,255);
-    };
+    SetColor(0,0,255);
+};
 
 void RGBLed::White () {
-// Accende il LED 
-      SetColor(0,0,0);
-    };
+// Accende il LED
+    SetColor(0,0,0);
+};
 
 void RGBLed::Off () {
-// Spegne il LED 
-      SetColor(255,255,255);
-    };
+// Spegne il LED
+    SetColor(255,255,255);
+};
 
 
 
@@ -125,7 +125,7 @@ void Lampeggiatore::Blink() {
 void Lampeggiatore::Blink(long time, long drift ) {
     // Illumina il led secondo un intervallo passato come argomento
 
-        shift = drift;
+    shift = drift;
     if(millis() + shift - previousMillis > time) {
         // save the last time you blinked the LED
         previousMillis = millis();
@@ -140,14 +140,14 @@ void Lampeggiatore::Blink(long time, long drift ) {
 void Lampeggiatore::Blink(long up, long down, long drift ) {
     // Illumina il ledB precisando ontime e downtime
 
-        shift = drift;
+    shift = drift;
     if((ledState == HIGH)&& (millis() + shift - previousMillis > up)) {
-    // save the last time you blinked the LED
-    	previousMillis = millis();
+        // save the last time you blinked the LED
+        previousMillis = millis();
         ledState = LOW  ;
     }
     else if((ledState == LOW)&& (millis() + shift - previousMillis > down)) {
-    	previousMillis = millis();
+        previousMillis = millis();
         ledState = HIGH  ;
     }
 
@@ -170,16 +170,16 @@ void Lampeggiatore::Low() {
 void Lampeggiatore::Swap() {
     // Inverte lo stato del LED
 
-    digitalWrite(ledPin, !digitalRead(ledPin)); 
+    digitalWrite(ledPin, !digitalRead(ledPin));
 }
 
 /////////////////////////////////////
 // Pwm
 // Constructor
 Pwm::Pwm(int pin)
-    // Gestione del PWM utilizzando millis
-    // per non bloccare il processore con delay
-    // Warning: serialWrite puo' interferire con i tempi.
+// Gestione del PWM utilizzando millis
+// per non bloccare il processore con delay
+// Warning: serialWrite puo' interferire con i tempi.
 {
     ledPin = pin;
     pinMode(ledPin, OUTPUT);
@@ -195,8 +195,8 @@ void Pwm::Up(long speed, long drift) {
 
     if (millis() != previousMillis)  { // si potrebbe togliere
         shift = drift;
-            brightness = 255.0 /(float)speed * (millis() + shift);
-            analogWrite(ledPin, brightness);
+        brightness = 255.0 /(float)speed * (millis() + shift);
+        analogWrite(ledPin, brightness);
 
         previousMillis = millis();
     };
@@ -209,8 +209,8 @@ void Pwm::lUp(long speed, long drift) {
 
     if (millis() != previousMillis)  { // si potrebbe togliere
         shift = drift;
-            brightness = 255.0 /(float)speed * (millis() + shift);
-            analogWrite(ledPin, lum(brightness));
+        brightness = 255.0 /(float)speed * (millis() + shift);
+        analogWrite(ledPin, lum(brightness));
 
         previousMillis = millis();
     };
@@ -222,8 +222,8 @@ void Pwm::Down(long speed, long drift) {
 
     if (millis() != previousMillis)  {
         shift = drift;
-            brightness = 255 - 255.0 /(float)speed * (millis() + shift) ;
-            analogWrite(ledPin, brightness);
+        brightness = 255 - 255.0 /(float)speed * (millis() + shift) ;
+        analogWrite(ledPin, brightness);
 
         previousMillis = millis();
     };
@@ -235,8 +235,8 @@ void Pwm::lDown(long speed, long drift) {
 
     if (millis() != previousMillis)  {
         shift = drift;
-            brightness = 255 - 255.0 /(float)speed * (millis() + shift) ;
-            analogWrite(ledPin, lum(brightness));
+        brightness = 255 - 255.0 /(float)speed * (millis() + shift) ;
+        analogWrite(ledPin, lum(brightness));
 
         previousMillis = millis();
     };
@@ -244,20 +244,20 @@ void Pwm::lDown(long speed, long drift) {
 
 void Pwm::UD(long speed, long drift ) {
     // Aumenta e riduce in sequenza la luminosita' usanndo millis()
-        shift = drift;
+    shift = drift;
     brightness = 128 + 127 * cos(2 * PI / speed * (millis() + shift));
-    analogWrite(ledPin, brightness);  
+    analogWrite(ledPin, brightness);
 }
 
 void Pwm::Set(byte brightness) {
-    // Imposta il valore del PWM 
-    analogWrite(ledPin, brightness);  
+    // Imposta il valore del PWM
+    analogWrite(ledPin, brightness);
 }
 
 
 void Pwm::lSet(byte brightness) {
-    // Imposta il valore del PWM 
-    analogWrite(ledPin, lum(brightness));  
+    // Imposta il valore del PWM
+    analogWrite(ledPin, lum(brightness));
 }
 
 
@@ -338,40 +338,45 @@ void Sequenza::UD(long value) {
 
 
 void brilla(byte pin, int velocita ) { // Defalt value di velocita' solo nell'Header
-  // Accende e spegne il LED accetando un argomento 
-  // per impostare la velocita'.
+    // Accende e spegne il LED accetando un argomento
+    // per impostare la velocita'.
 
-pinMode(pin, OUTPUT); 
-  // sequenze di istruzione: accendere e spegnere il LED
-  digitalWrite(pin, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(velocita);               // wait for a second
-  digitalWrite(pin, LOW);    // turn the LED off by making the voltage LOW
-  delay(velocita);               // wait for a second
+    pinMode(pin, OUTPUT);
+    // sequenze di istruzione: accendere e spegnere il LED
+    digitalWrite(pin, HIGH);   // turn the LED on (HIGH is the voltage level)
+    delay(velocita);               // wait for a second
+    digitalWrite(pin, LOW);    // turn the LED off by making the voltage LOW
+    delay(velocita);               // wait for a second
 };
 
 
-byte lum(byte val) { 
+byte lum(byte val) {
     // Mappatura dell'intervallo 0-255 con correzione di luminosita.
     // storata in SRAM
-return pgm_read_byte_near(BCORRECT + val);
+    return pgm_read_byte_near(BCORRECT + val);
 };
 
 
 int calibraTrim(int pin, byte ledPin) {
-/* START Calibrazione TRIM canale:
-   Lettura di 10 smaple
-   calcolo del valore medio esclusi gli 0 
+    /* START Calibrazione TRIM canale:
+       Lettura di 10 smaple
+       calcolo del valore medio esclusi gli 0
 
-   I canali come alettoni / elevatore possono avere un TRIM
-   (generalmente il throttle non ha un TRIM impostato),
-   questa funzione nel setup serve per trovare il punto medio
-   all'avvio dello sketch.
- */
+       I canali come alettoni / elevatore possono avere un TRIM
+       (generalmente il throttle non ha un TRIM impostato),
+       questa funzione nel setup serve per trovare il punto medio
+       all'avvio dello sketch.
+     */
     byte a 		= 0;
-	int ail 	= 0;
-	int ailIn 	= 0;
+    int ail 	= 0;
+    int ailIn 	= 0;
     Serial.println(">> Calibrazione: ");
     while (a < 10) {
+        if (millis() > 10000) {
+            Serial.print(">> Calibrazione annullata: segnale assente.");
+            ail = 1500;
+            break;
+        };
         ailIn = pulseIn(pin, HIGH, 25000);
         if (ailIn != 0 ) {
             ail = ail + ailIn ;
@@ -383,10 +388,10 @@ int calibraTrim(int pin, byte ledPin) {
             delay(10);
         }
     }
-    Serial.print(">> Fine Calibrazione: ");
+    Serial.println(">> Fine Calibrazione: ");
     Serial.print(ail / 10);
     Serial.println("--");
-	Serial.flush() ;
+    Serial.flush() ;
     return(ail / 10) ;
 // END calibrazione
 }
