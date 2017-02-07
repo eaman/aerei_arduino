@@ -112,14 +112,14 @@ void Lampeggiatore::Blink() {
     // Illumina il led a 500ms
 
     if(millis() + shift - previousMillis > interval) {
-        // save the last time you blinked the LED
-        previousMillis = millis();
 
         // if the LED is off turn it on and vice-versa:
         ledState = !ledState ; // Inverti il LED
+        // set the LED with the ledState of the variable:
+        digitalWrite(ledPin, ledState);
+        // save the last time you blinked the LED
+        previousMillis += interval;
     }
-    // set the LED with the ledState of the variable:
-    digitalWrite(ledPin, ledState);
 };
 
 void Lampeggiatore::Blink(long time, long drift ) {
@@ -127,14 +127,13 @@ void Lampeggiatore::Blink(long time, long drift ) {
 
     shift = drift;
     if(millis() + shift - previousMillis > time) {
-        // save the last time you blinked the LED
-        previousMillis = millis();
-
         // if the LED is off turn it on and vice-versa:
         ledState = !ledState ; // Inverti il LED
-    }
     // set the LED with the ledState of the variable:
     digitalWrite(ledPin, ledState);
+        // save the last time you blinked the LED
+        previousMillis += time;
+    }
 };
 
 void Lampeggiatore::Blink(long up, long down, long drift ) {
@@ -143,11 +142,11 @@ void Lampeggiatore::Blink(long up, long down, long drift ) {
     shift = drift;
     if((ledState == HIGH)&& (millis() + shift - previousMillis > up)) {
         // save the last time you blinked the LED
-        previousMillis = millis();
+        previousMillis += up;
         ledState = LOW  ;
     }
     else if((ledState == LOW)&& (millis() + shift - previousMillis > down)) {
-        previousMillis = millis();
+        previousMillis += down;
         ledState = HIGH  ;
     }
 
@@ -256,7 +255,7 @@ void Pwm::Set(byte brightness) {
 
 
 void Pwm::lSet(byte brightness) {
-    // Imposta il valore del PWM
+    // Imposta il valore del PWM con correzione luminosita' LED
     analogWrite(ledPin, lum(brightness));
 }
 
