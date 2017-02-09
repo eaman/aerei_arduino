@@ -17,6 +17,20 @@ TODO:
 
 #include <common.h>
 
+// Variabili:
+unsigned long currentMillis; // timestamp reference per millis per tutto il loop
+
+// Un LED RGB
+RGBLed ailerons(11,10,9,255);
+
+// Variabili per lettura canale servo
+const byte ailPin = A4;
+int ail ; // Valore a 8bit per ailerons
+int ailIn ; // Valore rilevato del 4 Ch della RX
+unsigned long ailTimer ; // millis per ail
+
+
+// FSM gestione alettoni
 enum  { // Stati della FMS
     middle,   // centrale
     sxin,     // transizione a sx
@@ -25,102 +39,60 @@ enum  { // Stati della FMS
     dx        // dx
 } ailstate  = middle;
 
-// Un LED RGB
-RGBLed ailerons(11,10,9);
+unsigned long FSM_lastMillis = 0 ; // Timestamp per la FSM degli alettoni
+unsigned long pausa = 1000;  // Pausa per la transizione durante gli stati 2, 4 della FSM
+int mid_point = 1560 ; // centro del segnale, trimmato nel setup
+const int deviation = 50 ; // deviazione dal punto medio
+        //per entrare nello stato successivo dal centro
 
-const byte ailPin = A4;
-int ail ; // Valore a 8bit per ailerons
-int ailIn ; // Valore rilevato del 4 Ch della RX
-
-
-unsigned long now; // timestamp reference for millis
-unsigned long pausa = 1000;
-
-int mid_point = 1500 ; // centro del segnale, trimmato nel setup
-const int deviation = 50 ; // deviazione per entrare nello stato succiessivo
-
+///////////////////////////////////////////////////////////
 void setup() {
-    /* Bisognerebbe introdurre una calibrazione per compensare i TRIM
-       ed eventualmente i dual rates.
 
-    - attivarla se allo start un ale e' al massimo
-    - fargli leggere i valori massimi
-    - salvarli in eprom
-    - per i dual rates: si potrebbe intercettare valori oltre al max
-      e in base a questi traslare le soglie automaticamente
-
-    Hint: leggere la soglia di rollio significativo in volo
-          e inserirla nei riferimenti.
-    */
-
-    Serial.begin(9600);
-
-/* START Calibrazione TRIM canale:
-   Lettura di 10 smaple
-   calcolo del valore medio esclusi gli 0 
- */
-    byte a = 0;
-    Serial.println(">> Calibrazione: ");
-    while (a < 10) {
-        ailIn = pulseIn(ailPin, HIGH, 25000);
-        if (ailIn != 0 ) {
-            ail = ail + ailIn ;
-            a++ ;
-            Serial.print(a);
-            Serial.print(": ");
-            Serial.println(ail);
-            digitalWrite(13, !digitalRead(13));
-            delay(10);
-        }
-    }
-    mid_point = ail / 10 ;
-    Serial.print(">> Fine Calibrazione: ");
-    Serial.print(mid_point);
-    Serial.println("--");
-// END calibrazione
+//   Serial.begin(9600);
+//   #define DEBUG
 
     // Funzione relativa a calibrazione:
-//mid_point =  calibraTrim(ailPin) ; // Pin a cui e' collegato il canale
-//mid_point =  calibraTrim(aliPin,11) ; // + LED di servizio per monitor calibrazione
+    mid_point =  calibraTrim(ailPin) ; // + LED di servizio per monitor calibrazione
 }
 
 void loop() {
+    currentMillis = millis(); // Timestamp per tutto il loop
 
+// Lettura ailerons channel ogni 200ms
+    if (currentMillis - ailTimer>= 200) { 
+        ailTimer = currentMillis ;
+
+        ailIn = pulseIn(ailPin, HIGH, 25000);
+        if (ailIn != 0 && ailIn > 1000 && ailIn <2000)  {
+            // get only resonable values
+            ail = ailIn;
+        } ;
 // Lettura Aileron channel: FAKE con un potenziometro 10K
-//ailIn = analogRead(3);
-//ail = constrain(aliIn * 2 , 0, 2000) ;
+// ailIn = analogRead(3);
+// ail = 1000 + ailIn 
+    }
 
-// Lettura ailerons channel
-    ailIn = pulseIn(ailPin, HIGH, 25000);
-    if (ailIn != 0) {
-        ail = constrain(ailIn, 1000, 2000);
-    } ;
-    // con un altra ricevente, fare una calibrazione nel caso.
-    // Middle = 1512
 
 
     switch (ailstate) {
     case middle:
         // Alettoni piatti
         if (ail > mid_point + deviation + deviation /3) {
+            // extra margine per avere un po' di gioco
             ailstate = sxin;
-            now = millis() ;
-            goto sxin ;
+            FSM_lastMillis = currentMillis;
         }
         else if (ail < mid_point - deviation - deviation / 3) {
             ailstate = dxin;
-            now = millis() ;
-            goto dxin ;
+            FSM_lastMillis = currentMillis ;
         } ;
-        ailerons.White();
-
+        ailerons.Red();
         break;
 
     case sxin:
-sxin:
         // Transizione a sx
         ailerons.Off();
-        if (millis() - pausa > now ) {
+        if (currentMillis - pausa > FSM_lastMillis ) {
             ailstate = sx;
         }
         break;
@@ -132,16 +104,15 @@ sxin:
             ailstate = middle;
         }
         else if (ail < mid_point - deviation) {
-            now = millis() ;
+            FSM_lastMillis = currentMillis;
             ailstate = dxin;
         } ;
         break;
 
     case dxin:
         // Transizione a dx
-dxin:
         ailerons.Off();
-        if (millis() - pausa > now ) {
+        if (currentMillis - pausa > FSM_lastMillis ) {
             ailstate = dx;
         }
         break;
@@ -153,17 +124,17 @@ dxin:
             ailstate = middle;
         }
         else if (ail > mid_point + deviation) {
-            now = millis() ;
+            FSM_lastMillis = currentMillis;
             ailstate = dxin;
         } ;
         break;
     }
-
+#ifdef DEBUG
     Serial.print("ailIn: ");
     Serial.print(ailIn);
     Serial.print("\tail: ");
     Serial.print(ail);
     Serial.print("\t ailstate:");
     Serial.println(ailstate);
-    //  delay(200);
+#endif
 }

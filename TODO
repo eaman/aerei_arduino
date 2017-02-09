@@ -1,3 +1,14 @@
+* aggiungere uno snippet per sniffing canale RX con interrupt
+*  mettere questo e quello in pulsein in una funzione / oggetto
+* Ailerons RGB: creare un metodo per lo stato intermedio 
+  es. un RGB lampeggiante
+
+Calibrazione:
+    allo stato attuale la radio deve essere accesa quando parte lo sketch,
+    se non c'e' segnale non avviene la calibrazione.
+    Far si che se la calibrazione avviene il valore viene salvato in EPROM,
+    se la calibrazione fallisce viene caricato il precedente valore da EPROM.
+
 * Aggiungere time displacement a Sequenza
 * Esempi:
     * FSM con gestione degli stati interna (da Zeta)

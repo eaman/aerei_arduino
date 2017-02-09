@@ -10,7 +10,6 @@
 #include "Arduino.h"
 #include "common.h"
 
-#define DEBUG_not
 
 //////////////////////
 // RGB LED
@@ -49,14 +48,12 @@ void RGBLed::SetColor (byte r, byte g, byte b) {
     analogWrite(bluePin,  common - b);
 
 // Debug
-#ifdef DEBUG
-   Serial.print(common - r);
-   Serial.print("-");
-   Serial.print(common - g);
-   Serial.print("-");
-   Serial.print(common - b);
-   while(1);
-#endif
+//   Serial.print(common - r);
+//   Serial.print("-");
+//   Serial.print(common - g);
+//   Serial.print("-");
+//   Serial.print(common - b);
+//   while(1);
 
 };
 
@@ -375,7 +372,7 @@ byte lum(byte val) {
 };
 
 
-int calibraTrim(int pin, const byte ledPin) {
+int calibraTrim(int pin) {
     /* START Calibrazione TRIM canale:
        Lettura di 10 smaple
        calcolo del valore medio esclusi gli 0
@@ -385,18 +382,15 @@ int calibraTrim(int pin, const byte ledPin) {
        questa funzione nel setup serve per trovare il punto medio
        all'avvio dello sketch.
      */
+    const byte ledPin = 13;
     pinMode(ledPin,OUTPUT);
     byte a 		= 0;
     int servoValue 	= 0;
     int middle = 0; 
-#ifdef DEBUG
     Serial.println(">> Calibrazione: ");
-#endif 
     while (a < 10) {
         if (millis() > 10000) {
-#ifdef DEBUG
             Serial.println(">> Calibrazione annullata a causa di assenza di seganle. \nAssicurarsi di accendere radio e ricevente \ne ripetere la procedura.");
-#endif 
             middle = 15000; // Return value is divided by 10
             break;
         };
@@ -404,20 +398,16 @@ int calibraTrim(int pin, const byte ledPin) {
         if (servoValue != 0 && servoValue > 1000 && servoValue <2000)  {
             middle = middle + servoValue ;
             a++ ;
-#ifdef DEBUG
             Serial.print(servoValue);
             Serial.print(": ");
             Serial.println(middle / a);
-#endif 
             digitalWrite(ledPin, !digitalRead(ledPin));
             delay(100);
         }
     }
-#ifdef DEBUG
     Serial.print(">> Fine Calibrazione, media: ");
     Serial.println(middle / 10);
     Serial.flush() ;
-#endif 
     return(middle / 10) ;
 // END calibrazione
 };

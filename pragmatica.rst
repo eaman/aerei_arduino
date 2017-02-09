@@ -40,7 +40,7 @@ Sequenziali
 
 
 * il minimo per un sequenziale e' 3 segmenti
-  * questi possono essere messi in serie a 3 canali RGB
+  * questi si potrebbero mettere in serie a 3 canali RGB
 * I segmenti posso essere ripetuti
 * I segmenti posso essere messi in mirror (es. dal centro all'esterno per le ali)
 * si puo' variare il rapporto tra accesi / spenti
@@ -77,11 +77,12 @@ Orientamento
 Serve distinguere principalmente tra sopra e sotto, davanti e dietro. Secondariamente tra destra e sinistra.
 
 Quindi prevalentemente usare il bianco per il sotto e per le estremita'.
-Il rosso essendo il secondo colore predominante si puo' usare per il sopra.
+Il rosso essendo il secondo colore predominante (purche' si disponga di LED con una luminosita' adeguata) si puo' usare per il sopra. In genere sui multicotteri su usa indicare in bianco il davanti e in rosso il dietro, gli aerei avendo un'unica direzione di movimento ed essendo sempre in movimento non danno problemi a identificarla direzione. Comunque si puo' usare una bussola digitale (vedi esempi) per indicare l'orientamento nei 3 assi dell'aereo.
 Verde e blu per i lati.
 
-Per dare un'indicazione della direzione usare segmenti sequenziali: sotto l'aereo per indicare il moto orizzontale
+Per dare un'indicazione della direzione usare segmenti sequenziali: sotto l'aereo per indicare il moto orizzontale, la velocia' di aggiornamento puo' essere proporzionale al throttle. Per i tutt'ala (fusoliera corta) si puo ottenere effetto analogo con due segmenti in mirror dall'interno all'esterno delle ali.
 
+Il roll si puo' indicare con una striscia RGB per la lunghezza delle ali, un colore per il volo piatto, colori differenti per i roll (vedi esempi / ailerons_state_rgb ).
 
 Hardware
 =============
