@@ -401,7 +401,7 @@ int calibraTrim(int pin, const byte ledPin) {
             break;
         };
         servoValue = pulseIn(pin, HIGH, 25000);
-        if (servoValue != 0 && servoValue > 1000 && servoValue <2000)  {
+        if (servoValue != 0 && servoValue > 950 && servoValue <2000)  {
             middle = middle + servoValue ;
             a++ ;
 #ifdef DEBUG
@@ -410,15 +410,15 @@ int calibraTrim(int pin, const byte ledPin) {
             Serial.println(middle / a);
 #endif 
             digitalWrite(ledPin, !digitalRead(ledPin));
-            delay(100);
+            delay(50);
         }
     }
 #ifdef DEBUG
     Serial.print(">> Fine Calibrazione, media: ");
-    Serial.println(middle / 10);
+    Serial.println(middle / 10 + 10);
     Serial.flush() ;
 #endif 
-    return(middle / 10) ;
+    return(middle / 10 + 10) ;
 // END calibrazione
 };
 

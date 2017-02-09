@@ -18,7 +18,7 @@ attuale.
 Aggiornamenti
 ===============
 
-Download:
+Download tramite git:
     git clone git://git.andreamanni.com/aerei
 
 Per aggiornare all'ultima versione::
@@ -26,11 +26,14 @@ Per aggiornare all'ultima versione::
     cd ~/aerei
     git pull
 
-Download manuale:
+Download manuale archivio:
     http://git.andreamanni.com/web?p=aerei;a=snapshot;h=HEAD;sf=tgz    
 
-Interfaccia Web:
-    http://git.andreamanni.com/
+Browse on line:
+    http://aerei.piffa.net/repo/
+
+Interfaccia git Web:
+    http://git.andreamanni.com/web?p=aerei
 
 Discussioni:
     https://forum.piffa.net/viewforum.php?f=4&sid=aef380599d890d6e7b9f92743fab9d7e

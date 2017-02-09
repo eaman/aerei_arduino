@@ -14,27 +14,30 @@ Setup
 
 Aggiornamenti
 
-   Download:
+   Download tramite git:
           git clone git://git.andreamanni.com/aerei
 
    Per aggiornare all'ultima versione:
+    cd ~/aerei
+    git pull
 
-        cd ~/aerei
-        git pull
-
-   Download manuale:
+   Download manuale archivio:
           [1]http://git.andreamanni.com/web?p=aerei;a=snapshot;h=HEAD;sf=t
           gz
 
-   Interfaccia Web:
-          [2]http://git.andreamanni.com/
+   Browse on line:
+          [2]http://aerei.piffa.net/repo/
+
+   Interfaccia git Web:
+          [3]http://git.andreamanni.com/web?p=aerei
 
    Discussioni:
-          [3]https://forum.piffa.net/viewforum.php?f=4&sid=aef380599d890d6
+          [4]https://forum.piffa.net/viewforum.php?f=4&sid=aef380599d890d6
           e7b9f92743fab9d7e
 
 References
 
    1. http://git.andreamanni.com/web?p=aerei;a=snapshot;h=HEAD;sf=tgz
-   2. http://git.andreamanni.com/
-   3. https://forum.piffa.net/viewforum.php?f=4&sid=aef380599d890d6e7b9f92743fab9d7e
+   2. http://aerei.piffa.net/repo/
+   3. http://git.andreamanni.com/web?p=aerei
+   4. https://forum.piffa.net/viewforum.php?f=4&sid=aef380599d890d6e7b9f92743fab9d7e
