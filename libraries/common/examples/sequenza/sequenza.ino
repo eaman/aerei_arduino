@@ -24,7 +24,7 @@ byte pins[] = {  // PIN dei LED che compongono la sequenza
 Sequenza seq = Sequenza(pins,sizeof(pins)); // Array dei PINs, quanti elementi compongono l'array
 
 void loop() {
-  seq.Update(200); // Passa al segmento suciessivo ogni 200ms
+  seq.Update(200); // Passa al segmento successivo ogni 200ms
 };
 
 

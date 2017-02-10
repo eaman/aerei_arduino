@@ -112,6 +112,8 @@ void RGBLed::Off () {
 /////////////////////////////////////
 // Lampeggiatore
 // Constructor
+//
+// Esempi incrementali: https://lab.piffa.net/sketchbook_andrea/multitasking/
 Lampeggiatore::Lampeggiatore(int pin)
 {
     ledPin = pin;

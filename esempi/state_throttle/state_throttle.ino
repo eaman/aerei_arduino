@@ -39,7 +39,7 @@ void loop() {
 
  // Lettura Throttle channel
  thrIn = pulseIn(thrPin, HIGH, 25000);
- thr = constrain(map(thrIn, 983, 2000, 0, 255), 0, 255) ; // 983 potrebbe campbiare con 
+ thr = constrain(map(thrIn, 983, 2000, 0, 255), 0, 255) ; // 983 potrebbe cambiare 
            // con un altra ricevente, fare una calibrazione nel caso.
 
  // FMS dispatcher
@@ -74,5 +74,6 @@ void loop() {
      motore.lSet(random(0,255);
      delay(random(20, 100));
      break;
+  }
   }
 

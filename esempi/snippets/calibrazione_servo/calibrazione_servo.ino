@@ -25,13 +25,11 @@ void setup() {
     Serial.begin(9600); // Se abilitato la calibrazione viene tracciata su seriale
     // Abilitando anche DEBUG nella libreria
 
-//    mid_point =  calibraTrim(ailPin) ; // Pin a cui e' collegato il canale
-mid_point =  calibraTrim(ailPin,11) ; // + LED di servizio per calibrazione
+    mid_point =  calibraTrim(ailPin) ; // Pin a cui e' collegato il canale
+//mid_point =  calibraTrim(ailPin,11) ; // + LED di servizio per calibrazione
 
 Serial.print("Valore calibrato: ");
 Serial.println(mid_point);
-
-    while(1); // Stoppa Arduino
 }
 
 void loop() {

@@ -27,14 +27,26 @@ Per aggiornare all'ultima versione::
     git pull
 
 Download manuale archivio:
-    http://git.andreamanni.com/web?p=aerei;a=snapshot;h=HEAD;sf=tgz    
+    https://git.andreamanni.com/web?p=aerei;a=snapshot;h=HEAD;sf=tgz    
 
 Browse on line:
-    http://aerei.piffa.net/repo/
+    https://aerei.piffa.net/repo/
 
 Interfaccia git Web:
-    http://git.andreamanni.com/web?p=aerei
+    https://git.andreamanni.com/web?p=aerei
 
 Discussioni:
     https://forum.piffa.net/viewforum.php?f=4&sid=aef380599d890d6e7b9f92743fab9d7e
     
+
+
+Links
+=========
+Risorse utili per utilizzare Arduino:
+
+* Per poter programmare le schede Arduino: Arduino IDE: https://www.arduino.cc/en/Main/Software#
+* Risorse di Andrea: https://lab.piffa.net/
+    * Wiki: http://wiki.piffa.net/
+    * Forum: https://forum.piffa.net/
+* Testi consigliati: https://lab.piffa.net/testi.html
+* Risorse online: http://wiki.piffa.net/index.php/Guide

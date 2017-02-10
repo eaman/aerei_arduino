@@ -1,8 +1,8 @@
 /* Aereo di Cirso
 
    Esempio base:
-   2 LED ai lati lampeggio alternato
-   1 LED in coda lampeggio a freq doppi
+   2 LED ai lati con lampeggio alternato
+   1 LED in coda lampeggio a freq doppia
 */
 
 #include <common.h>
@@ -24,5 +24,5 @@ void setup() {
 void loop() {
   left.Blink();   // Lampeggia con un default di 1sec (0.5 HI 0.5 LOW)
   right.Blink();
-  coda.Blink(1000);
+  coda.Blink(1000); // Lampeggio in 1000ms = 1 secondo
 }

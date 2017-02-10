@@ -28,3 +28,4 @@ lSet		KEYWORD2
 lum			KEYWORD2	
 Sequenza 		KEYWORD1
 Update		KEYWORD2	
+calibraTrim			KEYWORD2	

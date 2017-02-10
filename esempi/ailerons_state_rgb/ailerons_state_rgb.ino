@@ -63,7 +63,7 @@ void loop() {
         ailTimer = currentMillis ;
 
         ailIn = pulseIn(ailPin, HIGH, 25000);
-        if (ailIn != 0 && ailIn > 1000 && ailIn <2000)  {
+        if (ailIn != 0 && ailIn > 960 && ailIn <2000)  {
             // get only resonable values
             ail = ailIn;
         } ;
