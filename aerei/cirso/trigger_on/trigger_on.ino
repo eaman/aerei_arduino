@@ -23,6 +23,7 @@ void setup() {
     // I PINs vengono impostati dal constructor al momento
     // della dichiarazione dell'ogetto.
 
+    attachInterrupt(0, chRise, RISING); // PIN 2 su 328p / 168
     right.Invert() ;  // Opzionale: inverte l'ordine del lampeggio da
     // HI -> LOW --> LOW -> HI
     // per avere 2 LED che lampeggiano alternativamente
@@ -30,7 +31,7 @@ void setup() {
 
 void loop() {
 
-    if (chValue > 1400) {
+    if (chValue > 1500) {
         left.Blink();   // Lampeggia con un default di 1sec (0.5 HI 0.5 LOW)
         right.Blink();
         coda.Blink(1000); // Lampeggio in 1000ms = 1 secondo

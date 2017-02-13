@@ -19,13 +19,12 @@ int mid_point = 1500;
 
 void setup() {
     // Funzione relativa a calibrazione con pulsein:
-    mid_point =  calibraTrim(chPin) ; // Calibrazione del TRIM attivo sul canale
+//    mid_point =  calibraTrim(chPin) ; // Calibrazione del TRIM attivo sul canale
     attachInterrupt(0, chRise, RISING); // PIN 2 su 328p / 168
 #ifdef DEBUG
 Serial.begin(9600); // Warning: interrupts e serial potrebbero dare problemi
 } ;
 #endif
-} ;
 
 void loop() {
 #ifdef DEBUG

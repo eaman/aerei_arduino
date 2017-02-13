@@ -24,11 +24,12 @@ enum  { // Stati della FMS
 // Variabili per interrupt 0
 volatile unsigned int chValue = 1500; // Valore computato
 volatile unsigned int chStart = 1500; // Inizio rilevamento
-const int soglia = 1400; // soglia per scatto toggle a 2 posizioni
+const int soglia = 1500; // soglia per scatto toggle a 2 posizioni
 
 // Var FSM
 unsigned long FSM_lastMillis = 0 ; // Timestamp per la FSM degli alettoni
 unsigned long pausa = 2000;  // Pausa per la transizione durante gli stati 2, 4 della FSM
+unsigned long currentMillis = 0;
 
 // Instanziamo gli oggetti per gli stati On / Off
 Lampeggiatore left = 5;
@@ -37,19 +38,21 @@ Lampeggiatore coda = 9;
 
 // Instanziamo gli oggetti per gli stati di transizione
 Pwm leftPWM = 5;
-Pwm righatPWM = 6;
+Pwm rightPWM = 6;
 Pwm codaPWM = 9;
 
 void setup() {
     // I PINs vengono impostati dal constructor al momento
     // della dichiarazione dell'ogetto.
 
+attachInterrupt(0, chRise, RISING); // PIN 2 su 328p / 168
     right.Invert() ;  // Opzionale: inverte l'ordine del lampeggio da
     // HI -> LOW --> LOW -> HI
     // per avere 2 LED che lampeggiano alternativamente
 }
 
 void loop() {
+    currentMillis = millis();
 
 switch (toggle) {
     case Off:
@@ -73,10 +76,13 @@ switch (toggle) {
         if (chValue <= soglia) {
             FSM_lastMillis = millis();
             toggle = toOff ; 
+        leftPWM.Set(255);   
+        rightPWM.Set(255);
+        codaPWM.Set(255);
         }
         break;
 
-    case ToOn:
+    case toOn:
     // Trans off -> on
         leftPWM.lUp(pausa);   
         rightPWM.lUp(pausa);
@@ -89,7 +95,7 @@ switch (toggle) {
         }
         break;
 
-    case ToOff:
+    case toOff:
     // Trans on -> off
         leftPWM.lDown(pausa);   
         rightPWM.lDown(pausa);
