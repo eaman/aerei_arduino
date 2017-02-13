@@ -15,7 +15,7 @@ IDE l'intero repo ``aerei_arduino`` come cartella degli sketchbook, oppure
 copiare la cartella ``libraries/common`` dentro ``libraries`` dello sketchbook
 attuale.
 
-Aggiornamenti
+Download
 ===============
 
 Download tramite git:
@@ -30,7 +30,16 @@ Per aggiornare all'ultima versione::
 * `Browse on line <https://aerei.piffa.net/repo/>`_
 * `Interfaccia git Web <https://git.andreamanni.com/web?p=aerei>`_
 * `Foum di Discussione <https://forum.piffa.net/viewforum.php?f=4&sid=aef380599d890d6e7b9f92743fab9d7e>`_
-    
+   
+Libreria
+------------
+
+La sola libreria Common contenete gli oggetti base puo' essere scaricata direttamente nella vostra cartella libraries da:
+    git clone git://git.andreamanni.com/common
+
+* `Download manuale archivio <https://git.andreamanni.com/web?p=common;a=snapshot;h=HEAD;sf=tgz>`_
+* `Browse on line <https://aerei.piffa.net/repo/libraries/common/>`_
+* `Interfaccia git Web <https://git.andreamanni.com/web?p=common>`_
 
 
 Links

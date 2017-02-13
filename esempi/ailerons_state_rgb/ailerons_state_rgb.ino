@@ -21,7 +21,12 @@ TODO:
 unsigned long currentMillis; // timestamp reference per millis per tutto il loop
 
 // Un LED RGB
-RGBLed ailerons(11,10,9,255);
+RGBLed ailerons(11,10,9,255); // Common Cat
+
+// Transizione: Pwm
+Pwm sxLamp(10); // Lampeggiatore
+Pwm dxLamp(9); // Lampeggiatore
+
 
 // Variabili per lettura canale servo
 const byte ailPin = A4;
@@ -39,8 +44,11 @@ enum  { // Stati della FMS
     dx        // dx
 } ailstate  = middle;
 
+// Vars FSM
 unsigned long FSM_lastMillis = 0 ; // Timestamp per la FSM degli alettoni
 unsigned long pausa = 1000;  // Pausa per la transizione durante gli stati 2, 4 della FSM
+
+// Vars Alettoni
 int mid_point = 1560 ; // centro del segnale, trimmato nel setup
 const int deviation = 50 ; // deviazione dal punto medio
         //per entrare nello stato successivo dal centro
@@ -48,8 +56,11 @@ const int deviation = 50 ; // deviazione dal punto medio
 ///////////////////////////////////////////////////////////
 void setup() {
 
-//   Serial.begin(9600);
 //   #define DEBUG
+
+#ifdef DEBUG
+   Serial.begin(9600);
+#endif
 
     // Funzione relativa a calibrazione:
     mid_point =  calibraTrim(ailPin) ; // + LED di servizio per monitor calibrazione
@@ -60,22 +71,20 @@ void loop() {
 
 // Lettura ailerons channel ogni 200ms
     if (currentMillis - ailTimer>= 200) { 
-        ailTimer = currentMillis ;
 
         ailIn = pulseIn(ailPin, HIGH, 25000);
-        if (ailIn != 0 && ailIn > 960 && ailIn <2000)  {
+        if (ailIn > 960 && ailIn <2000)  {
             // get only resonable values
             ail = ailIn;
+            ailTimer = currentMillis ;
         } ;
-// Lettura Aileron channel: FAKE con un potenziometro 10K
-// ailIn = analogRead(3);
-// ail = 1000 + ailIn 
     }
 
 
 
     switch (ailstate) {
     case middle:
+        ailerons.White();
         // Alettoni piatti
         if (ail > mid_point + deviation + deviation /3) {
             // extra margine per avere un po' di gioco
@@ -86,12 +95,11 @@ void loop() {
             ailstate = dxin;
             FSM_lastMillis = currentMillis ;
         } ;
-        ailerons.Red();
         break;
 
     case sxin:
         // Transizione a sx
-        ailerons.Off();
+        sxLamp.(200);
         if (currentMillis - pausa > FSM_lastMillis ) {
             ailstate = sx;
         }
@@ -111,7 +119,7 @@ void loop() {
 
     case dxin:
         // Transizione a dx
-        ailerons.Off();
+        dxLamp.(200);
         if (currentMillis - pausa > FSM_lastMillis ) {
             ailstate = dx;
         }

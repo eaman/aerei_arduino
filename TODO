@@ -1,3 +1,5 @@
+* Pubblicare la libreria common su arduino, via github
+
 * aggiungere uno snippet per sniffing canale RX con interrupt
 *  mettere questo e quello in pulsein in una funzione / oggetto
 * Ailerons RGB: creare un metodo per lo stato intermedio 
@@ -23,3 +25,12 @@ Calibrazione:
 
 # Creare un PWM con correzione di luminosita' su look table da 32 / 256 valori,
 eventualmente uno con coseno.
+
+* Flasher con sequenza arbitraria di lampeggio
+* oggetti che lavorino contemporaneamente su piu' PIN
+* Link a Schemi / Schemi
+** battery voltage reader -> RGB
+** digital compass e RGB
+** barometer
+** 6 axis
+** Neopixel

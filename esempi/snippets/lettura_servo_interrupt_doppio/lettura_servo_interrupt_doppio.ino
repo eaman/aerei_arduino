@@ -7,6 +7,7 @@
 */
 
 #include <common.h>
+#define DEBUG
 
 
 // Variabili per interrupt 0 si PIN 2
@@ -31,11 +32,14 @@ void setup() {
     mid_point3 =  calibraTrim(chPin3) ; // Calibrazione del TRIM attivo sul canale
     attachInterrupt(0, chRise2, RISING); // PIN 2 su 328p / 168
     attachInterrupt(1, chRise3, RISING); // PIN 3 su 328p / 168
-Serial.begin(9600); // Warning: interrupts e serial potrebbero dare problemi
+#ifdef DEBUG
+Serial.begin(9600); 
 } ;
+#endif
 
 void loop() {
-
+// Il loop fa solo debug
+#ifdef DEBUG
     Serial.print("PIN2: ");
     Serial.print(chValue2);
     Serial.print(" -base: ");
@@ -46,6 +50,7 @@ void loop() {
     Serial.print(" -base: ");
     Serial.println(mid_point3);
     delay(200);
+#endif
 }
 
 // Functions

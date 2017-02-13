@@ -11,6 +11,7 @@
 
 */
 
+#define DEBUG
 #include <common.h>
 
 unsigned long currentMillis; // timestamp reference per millis per tutto il loop
@@ -26,27 +27,31 @@ unsigned int freq = 200 ; // Ogni quanti millisecondi leggere il valore
 void setup() {
     // Funzione relativa a calibrazione:
 //    mid_point =  calibraTrim(chPin) +10 ; // Con pulse in c'e' una traslazione ~10
-//Serial.begin(9600); // Warning: interrupts e serial potrebbero dare problemi
+#ifdef DEBUG
+Serial.begin(9600); // Warning: interrupts e serial potrebbero dare problemi
 } ;
+#endif
 
 void loop() {
     currentMillis = millis(); // Timestamp per tutto il loop
 
 // Lettura ailerons channel ogni 200ms
     if (currentMillis - chStamp >= freq) {
-        chStamp = currentMillis ;
 
         chIn = pulseIn(chPin, HIGH, 25000);
         if (chIn != 0 && chIn > 1000 && chIn <2000)  {
             // get only resonable values
             chValue = chIn;
+            chStamp = currentMillis ;
         } ;
     };
 
 // do something with    chValue
-//    Serial.print(chValue);
-//    Serial.print(" - base: ");
-//    Serial.println(mid_point);
-//    delay(200);
+#ifdef DEBUG
+    Serial.print(chValue);
+    Serial.print(" - base: ");
+    Serial.println(mid_point);
+    delay(200);
+#endif
 
 }

@@ -18,12 +18,12 @@ enum  { // Stati della FMS
 // Due LED con lampeggio alternato:
 Lampeggiatore right = 3;
 Lampeggiatore left = 5;
-Pwm motor = 7;
+Pwm motore = 7;
 
 const byte thrPin = A3;
 byte thr ; // Valore a 8bit per il throttle
 int thrIn ; // Valore rilevato del 3 Ch della RX 
-
+const int thMin = 983; // In genere il valore minimo del TH resta costante,
 
 
 void setup() {
@@ -38,9 +38,10 @@ void loop() {
  //thr = constrain(thrIn / 4 , 0, 255) ;
 
  // Lettura Throttle channel
- thrIn = pulseIn(thrPin, HIGH, 25000);
- thr = constrain(map(thrIn, 983, 2000, 0, 255), 0, 255) ; // 983 potrebbe cambiare 
-           // con un altra ricevente, fare una calibrazione nel caso.
+    thrIn = pulseIn(thrPin, HIGH, 25000);
+    if (thrIn >= thMin && thrIn < 2000)  { // clean up
+        thr = map(thrIn, thMin, 2000, 0, 255); // mappato su 8bit per PWM
+    } ;
 
  // FMS dispatcher
  if ( thr < 10 ) {
@@ -71,7 +72,7 @@ void loop() {
      // lampeggi e PWM a caso
      right.Swap();
      left.Swap();
-     motore.lSet(random(0,255);
+     motore.lSet(random(0,255));
      delay(random(20, 100));
      break;
   }

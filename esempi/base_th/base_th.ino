@@ -16,8 +16,11 @@ Pwm sotto = 9;
 
 // Variabili
 const byte thrPin = 3; // PIN collegato al CH3
-byte thr ; // Throttle
-int thrIn ;
+byte thr ; // Valore a 8bit per il throttle
+int thrIn ; // Valore rilevato del 3 Ch della RX 
+const int thMin = 983; // In genere il valore minimo del TH resta costante,
+// per calcolarlo si puo' usare la funzione di calibrazione nel setup
+
 
 void setup() {
     // I PINs vengono impostati dal constructor al momento
@@ -31,13 +34,12 @@ void setup() {
 void loop() {
 // Lettura CH3
     thrIn = pulseIn(thrPin, HIGH, 25000);
-    if (thrIn != 0 && ailIn > 983 && ailIn < 2000)  { // clean up
-        thr = map(thrIn, 983, 2000, 0, 255); // mappato su 8bit per PWM
-    }
+    if (thrIn >= thMin && thrIn < 2000)  { // clean up
+        thr = map(thrIn, thMin, 2000, 0, 255); // mappato su 8bit per PWM
+    };
 
 // Attivazione LEDs
         left.Blink(100 + thr);
         right.Blink(100 + thr);
         sotto.lSet(thr);   // Luminosita' proporzionale al throttle
-        delay(10); // Opzionale
     }
