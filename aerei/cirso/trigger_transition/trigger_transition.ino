@@ -42,13 +42,8 @@ Pwm rightPWM = 6;
 Pwm codaPWM = 9;
 
 void setup() {
-    // I PINs vengono impostati dal constructor al momento
-    // della dichiarazione dell'ogetto.
-
 attachInterrupt(0, chRise, RISING); // PIN 2 su 328p / 168
-    right.Invert() ;  // Opzionale: inverte l'ordine del lampeggio da
-    // HI -> LOW --> LOW -> HI
-    // per avere 2 LED che lampeggiano alternativamente
+    right.Invert() ;  // Invertiamo uno dei due lampeggiatori
 }
 
 void loop() {
@@ -62,8 +57,11 @@ switch (toggle) {
         coda.Low();
 
         if (chValue > soglia) {
-            FSM_lastMillis = millis();
+            FSM_lastMillis = currentMillis;
             toggle = toOn ; 
+        leftPWM.Set(0);   
+        rightPWM.Set(0);
+        codaPWM.Set(0);
         }
         break;
 
@@ -74,7 +72,7 @@ switch (toggle) {
         coda.Blink(1000); // Lampeggio in 1000ms = 1 secondo
 
         if (chValue <= soglia) {
-            FSM_lastMillis = millis();
+            FSM_lastMillis = currentMillis;
             toggle = toOff ; 
         leftPWM.Set(255);   
         rightPWM.Set(255);

@@ -6,6 +6,11 @@ Output:
 
 Input:
    1 interruttore su interrupt 0 per accensione / spegnimento luci
+
+Note:
+   Realizzato con un semplice ciclo IF per ON / OFF,
+   lo sketch successsivo ha un macchina a stati per gestire
+   la transizione ON <-> OFF con una dissolvenza.
 */
 
 #include <common.h>
