@@ -20,8 +20,9 @@ Pwm rpwm = 11;
 
 // Variabili
 const byte thrPin = 3; // PIN collegato al CH3
-byte thr ; // Valore a 8bit per il throttle
 int thrIn ; // Valore rilevato del 3 Ch della RX 
+int thr ; // Valore a 16bit per il throttle
+byte thrBit ; // Valore a 8bit per il throttle
 const int thMin = 983; // In genere il valore minimo del TH resta costante,
 // per calcolarlo si puo' usare la funzione di calibrazione nel setup
 
@@ -48,23 +49,24 @@ void loop() {
 // Gestione throttle
     if (thr < 1050) {
         // IDLE
-
         rpwm.UD(2000);
         lpwm.UD(2000);
         sotto.lDown(1500);
     }
-    else if (thr < 1900) {
-        // Throttle medio
-        right.Blink(1120 - 4 * thr );
-        left.Blink(1120 - 4 * thr );
-        sotto.lSet(map(thrIn, thMin, 2000, 0, 255));   // Luminosita' proporzionale al throttle
-    }
-    else {
+    else if (thr > 1900) {
         // Throttle al massimo: LED laterali lampeggiano a caso,
         // Sotto luminosita' a caso
-        caso = random(20, 240) ;
+        caso = random(30, 250) ;
         right.Swap();
         left.Swap();
         sotto.lSet(caso);
+        delay(caso);
+    }
+    else {
+        // Throttle medio
+        thrBit = map(thr,1050, 1900, 0, 255);
+        right.Blink(1220 - 4 * thrBit );
+        left.Blink(1220 - 4 * thrBit );
+        sotto.lSet(thrBit));   // Luminosita' proporzionale al throttle
     }
 }
