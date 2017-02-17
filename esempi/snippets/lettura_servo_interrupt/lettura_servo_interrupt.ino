@@ -18,13 +18,16 @@ const byte chPin = 2; // PIN per la calibrazione
 int mid_point = 1500;
 
 void setup() {
-    // Funzione relativa a calibrazione con pulsein:
-//    mid_point =  calibraTrim(chPin) ; // Calibrazione del TRIM attivo sul canale
-    attachInterrupt(0, chRise, RISING); // PIN 2 su 328p / 168
+// Funzione relativa a calibrazione con pulsein:
+ mid_point =  calibraTrim(chPin) + 8; // Calibrazione del TRIM con pulseIn:
+ // se si usa poi un interrupt si aggiunge ~10
+
+attachInterrupt(0, chRise, RISING); // PIN 2 su 328p / 168
+
 #ifdef DEBUG
 Serial.begin(9600); // Warning: interrupts e serial potrebbero dare problemi
-} ;
 #endif
+} ;
 
 void loop() {
 #ifdef DEBUG

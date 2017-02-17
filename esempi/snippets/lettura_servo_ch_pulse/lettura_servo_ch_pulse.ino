@@ -16,7 +16,7 @@
 
 
 // Variabili
-const byte chPin = A4; // PIN su cui e' collegato il canale
+const byte chPin = 2; // PIN su cui e' collegato il canale
 unsigned int chIn = 1500; // Valore catturato
 unsigned int chValue = 1500; // Valore computato
 // Attenzione che pulsein e' blocking
@@ -26,22 +26,24 @@ int mid_point = 1500;
 
 void setup() {
     // Funzione relativa a calibrazione:
-    mid_point =  calibraTrim(chPin) - 10; // Con pulse in si toglie 10
-Serial.begin(9600); // Warning: interrupts e serial potrebbero dare problemi
+    mid_point =  calibraTrim(chPin)  ; 
 
-} ;
+Serial.begin(9600); // Warning: interrupts e serial potrebbero dare problemi
+};
 
 void loop() {
-
-// Lettura ailerons channel ogni 200ms
+// Lettura canale
         chIn = pulseIn(chPin, HIGH, 25000);
-        if (chIn != 0 && chIn > 1000 && chIn <2000)  {
-            // get only resonable values
+        if (chIn > 1000 && chIn <2000)  {
+            // Scartiamo valori fuori range, talvolta pero' alcune RX
+            // hanno il minimo un po' sotto a 1000
             chValue = chIn;
     };
 
-
 // do something with    chValue
+
+    Serial.print(chIn);
+    Serial.print(" > chValue= ");
     Serial.print(chValue);
     Serial.print(" - base: ");
     Serial.println(mid_point);

@@ -7,10 +7,7 @@ Pilotare un LED RGB in base al canale degli alettoni:
 - roll a sx
 - roll a dx
 
-NOTE: uso di goto all'interno dell FSM.
-
 TODO:
-
 * clean up magic numbers
 
 */
@@ -62,8 +59,8 @@ void setup() {
    Serial.begin(9600);
 #endif
 
-    // Funzione relativa a calibrazione:
-    mid_point =  calibraTrim(ailPin) ; // + LED di servizio per monitor calibrazione
+// Funzione relativa a calibrazione:
+mid_point =  calibraTrim(ailPin) ; // + LED di servizio per monitor calibrazione
 }
 
 void loop() {

@@ -417,7 +417,7 @@ int calibraTrim(int pin, const byte ledPin) {
     Serial.println(middle / 10 + 10);
     Serial.flush() ;
 #endif 
-    return(middle / 10 + 10) ;
+    return(middle / 10 ) ;
 // END calibrazione
 };
 
