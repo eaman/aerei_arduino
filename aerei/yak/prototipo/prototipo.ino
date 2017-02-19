@@ -5,6 +5,7 @@ OUTPUT:
    1 PWM motore: 10
    2 LED ai lati con lampeggio alternato
    1 LED in coda lampeggio a freq doppia
+   3 Sequenza di LED da 3 unita' ripetuta 3 volte
 */
 
 #include <common.h>

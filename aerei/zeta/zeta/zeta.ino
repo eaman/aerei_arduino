@@ -1,7 +1,10 @@
 /* Zeta
 
-Nota: rivedere i PWM per come calcolano le pause:
-non possono schendere sotto a 1ms
+Versione con solo il throttle come input via pulseIn.
+
+Aggiunta striscia RGB sotto.
+
+
 */
 
 #include <common.h>
