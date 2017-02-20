@@ -11,12 +11,12 @@
 
 // LED disponibili
 Lampeggiatore left = 10;
-Lampeggiatore right = 11;
+Lampeggiatore right = 12;
 Pwm sotto = 9;
 
 // Quando il Throttle e' in IDE facciamo un PWM anche sui laterali
 Pwm lpwm = 10 ;
-Pwm rpwm = 11;
+Pwm rpwm = 12;
 
 // Variabili
 const byte thrPin = 3; // PIN collegato al CH3
