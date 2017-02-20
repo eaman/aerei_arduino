@@ -75,8 +75,8 @@ Serial.begin(9600);
 }
 
 void loop() {
-left.Blink(300);
-right.Blink(300);
+left.Blink(map(chValue2,1000,2000,200,800 );
+right.Blink(map(chValue2,1000,2000,800,200 );
 //codasx.Blink();
 //codadx.Blink();
 
