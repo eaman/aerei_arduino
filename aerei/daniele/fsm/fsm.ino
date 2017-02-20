@@ -1,5 +1,6 @@
 /* Aereo di Daniele
 
+FSM: il throttle e' a posto
 Prototipo: F8 Bearcat
 
 Output:
@@ -16,6 +17,9 @@ Input:
 * Vedere la calibrazione automatica
 * Min e max a 1000 - 2000 per alettone
 
+TODO: 
+Aggiungere FSM per alettone: lampeggi alternati
+in base a chValue2
 */
 
 #include <common.h>
@@ -27,10 +31,10 @@ Lampeggiatore right = 9;
 Lampeggiatore codasx = 5;
 Lampeggiatore codadx = 10;
 
-//Pwm pleft = 6;
-//Pwm pright = 9;
-//Pwm pcodasx = 5;
-//Pwm pcodadx = 10;
+Pwm pleft = 6;
+Pwm pright = 9;
+Pwm pcodasx = 5;
+Pwm pcodadx = 10;
 
 // Variabili per interrupt 0 si PIN 2
 volatile unsigned int chValue2 = 1500; // Valore computato
@@ -48,6 +52,9 @@ int mid_point2 = 1500;
 const byte chPin3 = 3; // PIN per la calibrazione
 int mid_point3 = 1000;
 
+// Variabili
+int caso ;
+int thrBit;
 
 void setup() {
   // I PINs vengono impostati dal constructor al momento
@@ -70,9 +77,34 @@ Serial.begin(9600);
 void loop() {
 left.Blink(300);
 right.Blink(300);
-codasx.Blink();
-codadx.Blink();
+//codasx.Blink();
+//codadx.Blink();
 
+// Gestione throttle
+    if (chValue3 < 1050) {
+        // IDLE
+//pleft.Up(1000);
+//pright.Up(1000);
+pcodasx.UD(2000);
+pcodadx.UD(2000);
+
+    }
+    else if (chValue3 > 1900) {
+        // Throttle al massimo: LED laterali lampeggiano a caso,
+        // Sotto luminosita' a caso
+        caso = random(30, 250) ;
+codasx.Swap();
+codadx.Swap();
+        delay(caso);
+    }
+    else {
+        // Throttle medio
+        thrBit = map(chValue3,1050, 1900, 0, 255);
+        codasx.Blink(1220 - 4 * thrBit );
+        codadx.Blink(1220 - 4 * thrBit );
+		//left.Blink(chValue2 - 300);
+		//right.Blink(chValue2 - 300);
+    }
 #ifdef DEBUG
     Serial.print("PIN2: ");
     Serial.print(chValue2);
