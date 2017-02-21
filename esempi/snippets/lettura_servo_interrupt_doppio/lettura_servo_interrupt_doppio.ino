@@ -53,7 +53,7 @@ void loop() {
 #endif
 }
 
-// Functions
+// ISRs:
 void chRise2() {
     attachInterrupt(0, chFall2, FALLING);
     chStart2 = micros();
@@ -63,7 +63,7 @@ void chFall2() {
     attachInterrupt(0, chRise2, RISING);
     chValue2 = micros() - chStart2;
 }
-// Seconod iterrupt
+// Secondo iterrupt
 void chRise3() {
     attachInterrupt(1, chFall3, FALLING);
     chStart3 = micros();
