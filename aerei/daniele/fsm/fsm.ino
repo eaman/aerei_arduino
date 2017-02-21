@@ -23,7 +23,7 @@ in base a chValue2
 */
 
 #include <common.h>
-# define DEBUG
+# define dEBUG
 
 // Instanziamo un LED fuori dal loop
 Lampeggiatore left = 6;
