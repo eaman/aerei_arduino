@@ -10,6 +10,10 @@ Nota: questa funzione usa PULSEIN in modo da poter lavorare su
 qualunque PIN, considerando che in genere viene eseguita 
 una sola volta nel SETUP.
 
+Si noti che se il canale viene poi letto con un interrupt e non con pulseIn
+statisticamente bisogna incrementare (almeno sulle mie RX) il valore ottenuto
+di circa 10.
+
 Se si vuole qualcosa non blocking sostituire PULSEIN con 
 un interrupt.
 
@@ -25,7 +29,7 @@ void setup() {
     Serial.begin(9600); // Se abilitato la calibrazione viene tracciata su seriale
     // Abilitando anche DEBUG nella libreria
 
-    mid_point =  calibraTrim(ailPin) ; // Pin a cui e' collegato il canale
+    mid_point =  calibraTrim(ailPin) + 8; // Pin a cui e' collegato il canale
 //mid_point =  calibraTrim(ailPin,11) ; // + LED di servizio per calibrazione
 
 Serial.print("Valore calibrato: ");

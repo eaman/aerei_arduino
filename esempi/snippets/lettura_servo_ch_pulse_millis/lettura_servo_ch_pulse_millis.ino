@@ -17,20 +17,22 @@
 unsigned long currentMillis; // timestamp reference per millis per tutto il loop
 
 // Variabili
-const byte chPin = A4; // PIN su cui e' collegato il canale
+const byte chPin = 2; // PIN su cui e' collegato il canale
 long unsigned chStamp = 0; // Timestamp per
 unsigned int chIn = 1500; // Valore catturato
 unsigned int chValue = 1500; // Valore computato
 unsigned int freq = 200 ; // Ogni quanti millisecondi leggere il valore
+int mid_point = 1500; // Punto medio per calibrazione
 // Attenzione che pulsein e' blocking
 
 void setup() {
-    // Funzione relativa a calibrazione:
-//    mid_point =  calibraTrim(chPin) +10 ; // Con pulse in c'e' una traslazione ~10
+// Funzione relativa a calibrazione: per il throttle si puo' evitare
+    mid_point =  calibraTrim(chPin)  ; 
+
 #ifdef DEBUG
 Serial.begin(9600); // Warning: interrupts e serial potrebbero dare problemi
-} ;
 #endif
+} ;
 
 void loop() {
     currentMillis = millis(); // Timestamp per tutto il loop
