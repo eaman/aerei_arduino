@@ -38,7 +38,7 @@ void loop() {
 #endif
 }
 
-// Functions
+// ISR:
 void chRise() {
     attachInterrupt(0, chFall, FALLING);
     chStart = micros();
