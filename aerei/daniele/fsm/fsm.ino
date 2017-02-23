@@ -75,8 +75,6 @@ Serial.begin(9600);
 }
 
 void loop() {
-left.Blink(map(chValue2,1000,2000,200,800 );
-right.Blink(map(chValue2,1000,2000,800,200 );
 //codasx.Blink();
 //codadx.Blink();
 
@@ -87,14 +85,19 @@ right.Blink(map(chValue2,1000,2000,800,200 );
 //pright.Up(1000);
 pcodasx.UD(2000);
 pcodadx.UD(2000);
+pleft.lUp(1000);
+pright.lDown(1000);
+
 
     }
     else if (chValue3 > 1900) {
         // Throttle al massimo: LED laterali lampeggiano a caso,
         // Sotto luminosita' a caso
         caso = random(30, 250) ;
-codasx.Swap();
-codadx.Swap();
+pleft.Set(); 
+pright.Set(); 
+pcodasx.Set();
+pcodadx.Set();
         delay(caso);
     }
     else {
@@ -102,8 +105,8 @@ codadx.Swap();
         thrBit = map(chValue3,1050, 1900, 0, 255);
         codasx.Blink(1220 - 4 * thrBit );
         codadx.Blink(1220 - 4 * thrBit );
-		//left.Blink(chValue2 - 300);
-		//right.Blink(chValue2 - 300);
+left.Blink(map(chValue2,1000,2000,200,800 ));
+right.Blink(map(chValue2,1000,2000,800,200 ));
     }
 #ifdef DEBUG
     Serial.print("PIN2: ");
