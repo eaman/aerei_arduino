@@ -65,11 +65,11 @@ codadx.Invert();
   // HI -> LOW --> LOW -> HI
   // per avere 2 LED che lampeggiano alternativamente
     // Funzione relativa a calibrazione con pulsein:
-    //mid_point2 =  calibraTrim(chPin2) ; // Calibrazione del TRIM attivo sul canale
+    mid_point2 =  calibraTrim(chPin2) ; // Calibrazione del TRIM attivo sul canale
     //mid_point3 =  calibraTrim(chPin3) ; // Calibrazione del TRIM attivo sul canale
     attachInterrupt(0, chRise2, RISING); // PIN 2 su 328p / 168
     attachInterrupt(1, chRise3, RISING); // PIN 3 su 328p / 168
-#ifdef DEBUG
+#ifdef dEBUG
 Serial.begin(9600); 
 #endif
 }
@@ -94,10 +94,10 @@ pright.lDown(1000);
         // Throttle al massimo: LED laterali lampeggiano a caso,
         // Sotto luminosita' a caso
         caso = random(30, 250) ;
-pleft.Set(); 
-pright.Set(); 
-pcodasx.Set();
-pcodadx.Set();
+pleft.Set(caso); 
+pright.Set(caso); 
+pcodasx.Set(caso);
+pcodadx.Set(caso);
         delay(caso);
     }
     else {

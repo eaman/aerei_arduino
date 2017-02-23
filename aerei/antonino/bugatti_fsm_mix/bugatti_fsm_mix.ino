@@ -18,7 +18,7 @@ TODO:
 */
 
 #include <common.h>
-#define dEBUG
+#define DEBUG
 
 // LED disponibili
 Lampeggiatore left = 7;
@@ -26,7 +26,7 @@ Lampeggiatore right = 8;
 Pwm motore = 3;
 
 // RGB
-RGBLed ailerons(6,5,9);
+RGBLed ailerons(6,5,9,255);
 // Transizione: lampeggiatori sui PIN RGB
 Lampeggiatore sxLamp(5); // Lampeggiatore
 Lampeggiatore dxLamp(9); // Lampeggiatore
@@ -37,7 +37,7 @@ Pwm bsotto = 3;
 
 // Var thr
 //////////////// !!!! cambiare thrIn
-const byte thrPin = A5; // PIN collegato al CH3
+const byte thrPin = A2; // PIN collegato al CH3
 byte thr ;  // Throttle a 8bit
 int thrIn ; // Valore del th in ingresso dal servo
 
@@ -45,13 +45,11 @@ int thrIn ; // Valore del th in ingresso dal servo
 volatile unsigned int ail = 1500; // Valore computato
 volatile unsigned int chStart2 = 1500; // Inizio rilevamento
 
-// Variabili per autocalibrazione 0
-const byte chPin2 = 2; // PIN per la calibrazione
-int mid_point2 = 1500;
 
 // Vars Alettoni
-int mid_point = 1560 ; // centro del segnale, trimmato nel setup
-const int deviation = 50 ; // deviazione dal punto medio
+const byte chPin2 = 2; // PIN per la calibrazione
+int mid_point = 1450 ; // centro del segnale, trimmato nel setup
+const int deviation = 40 ; // deviazione dal punto medio
 //per entrare nello stato successivo dal centro
 
 
@@ -104,7 +102,7 @@ void loop() {
     thrIn = pulseIn(thrPin, HIGH, 25000);
     // Hint: thrIn andrebbe calibrato son un Serial.write
     if (thrIn != 0) {
-        thr = map(thrIn, 960, 2000, 0, 255);
+        thr = map(thrIn, 870, 2000, 0, 255);
     };
 
 
@@ -118,7 +116,7 @@ void loop() {
         // RGB
         rsotto.lDown(3000);
         gsotto.lUp(1000);
-        bsotto.lup(2000);
+        bsotto.lUp(2000);
 
 
     } else if (thr < 245) {
@@ -158,7 +156,7 @@ void loop() {
             break;
 
         case sx:
-            ailerons.Green();
+            ailerons.Red();
             if (ail < mid_point + deviation) {
                 ailstate = middle;
             }
@@ -212,6 +210,8 @@ void loop() {
     Serial.print(ail);
     Serial.print("\t ailstate:");
     Serial.println(ailstate);
+    //Serial.print("\t mid_point:");
+    //Serial.print(mid_point);
 #endif
 }
 // ISRs

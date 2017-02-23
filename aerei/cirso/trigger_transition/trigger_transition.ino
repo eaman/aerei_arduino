@@ -1,4 +1,4 @@
-/* Cirso TransStates
+/* Cirso TransStates Focke-Wulf Fw 190
 
 Output:
    2 LED ai lati con lampeggio alternato

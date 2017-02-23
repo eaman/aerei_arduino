@@ -49,7 +49,7 @@ volatile unsigned int chStart2 = 1500; // Inizio rilevamento
 const byte chPin2 = 2; // PIN per la calibrazione
 
 // Vars Alettoni
-int mid_point = 1452 ; // centro del segnale, trimmato nel setup
+int mid_point = 1432 ; // centro del segnale, trimmato nel setup
 const int deviation = 50 ; // deviazione dal punto medio
         //per entrare nello stato successivo dal centro
 
@@ -103,7 +103,7 @@ currentMillis = millis(); // Timestamp per tutto il loop
   thrIn = pulseIn(thrPin, HIGH, 25000);
   // Hint: thrIn andrebbe calibrato son un Serial.write
   if (thrIn != 0) {
-thr = map(thrIn, 960, 2000, 0, 255);
+thr = map(thrIn, 870, 2000, 0, 255);
 };
 
     
@@ -136,19 +136,18 @@ thr = map(thrIn, 960, 2000, 0, 255);
 
 
   //// Ailerons:
- switch (ailstate) {
+switch (ailstate) {
     case middle:
         ailerons.White();
         // Alettoni piatti
         if (ail > mid_point + deviation + deviation /3) {
             // extra margine per avere un po' di gioco
             ailstate = sxin;
-            ailerons.Off(); 
             FSM_lastMillis = currentMillis;
         }
         else if (ail < mid_point - deviation - deviation / 3) {
             ailstate = dxin;
-            ailerons.Off(); 
+            ailerons.Off();
             FSM_lastMillis = currentMillis ;
         } ;
         break;
@@ -160,8 +159,7 @@ thr = map(thrIn, 960, 2000, 0, 255);
             ailstate = sx;
         }
         break;
-
-    case sx:
+case sx:
         ailerons.Green();
         if (ail < mid_point + deviation) {
             ailstate = middle;
@@ -191,6 +189,7 @@ thr = map(thrIn, 960, 2000, 0, 255);
         } ;
         break;
     }
+
 
 #ifdef DEBUG
 Serial.print(thrIn);
