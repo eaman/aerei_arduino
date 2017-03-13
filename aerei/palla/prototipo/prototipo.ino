@@ -60,15 +60,15 @@ Serial.begin(9600);
 
 void loop() {
     sotto.Red();
-    motore.set(0);
+    motore.Set(0);
 delay(500);
 sotto.Off();
     sotto.Green();
-    motore.set(150);
+    motore.Set(150);
 delay(500);
 sotto.Off();
     sotto.Blue();
-    motore.set(250);
+    motore.Set(250);
 delay(500);
 sotto.Off();
 
