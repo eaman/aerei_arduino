@@ -1,7 +1,6 @@
 /* Aereo Palla
 
 Pilotare un LED RGB in base al canale degli alettoni:
-Questo sketch usa la funzione pulseIn(),
 per versione con interrupts vedere esempio successivo.
 
 = 3 stati + 2 transizioni:

@@ -5,8 +5,6 @@ Prototipo: F8 Bearcat
 Output:
    3 RGB PWM sotto
    1 PWM Motore
-//   2 LED ai lati con lampeggio alternato
-//   2 LED alle estremita ali
 
 Input:
     2 interrupts per throttle e alettone
@@ -62,15 +60,17 @@ Serial.begin(9600);
 
 void loop() {
     sotto.Red();
+    motore.set(0);
 delay(500);
 sotto.Off();
     sotto.Green();
+    motore.set(150);
 delay(500);
 sotto.Off();
     sotto.Blue();
+    motore.set(250);
 delay(500);
 sotto.Off();
-motore.UD(3000);
 
 #ifdef DEBUG
     Serial.print("PIN2: ");
