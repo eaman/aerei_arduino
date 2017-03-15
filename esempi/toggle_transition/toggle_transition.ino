@@ -1,7 +1,11 @@
-/* Toggle con transizioni tra On | OFF
+/* Toggle con transizioni tra On | OFF con interrupt
+
+
+Sketch di esempio per accensione spegnimento di tutto l'impianto luci
+tramite un interruttore a due posizioni della radio.
 
 Output esempio: 
-   1 Lampeggiatore in coda.
+   1 Lampeggiatore in coda in PWM
 
 Input:
    1 interruttore su interrupt 0 per accensione / spegnimento luci
@@ -36,12 +40,7 @@ Lampeggiatore coda = 9;
 Pwm codaPWM = 9;
 
 void setup() {
-    // I PINs vengono impostati dal constructor al momento
-    // della dichiarazione dell'ogetto.
 
-    right.Invert() ;  // Opzionale: inverte l'ordine del lampeggio da
-    // HI -> LOW --> LOW -> HI
-    // per avere 2 LED che lampeggiano alternativamente
 }
 
 void loop() {

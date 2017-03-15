@@ -10,6 +10,7 @@ Input:
     2 interrupts per th e alettone
     PIN 2:  alettone
     PIN 3:  throttle
+    PIN A1: interruttore On/Off
 
 
     TODO
@@ -40,6 +41,8 @@ volatile unsigned int chStart2 = 1500; // Inizio rilevamento
 volatile unsigned int chValue3 = 1500; // Valore computato
 volatile unsigned int chStart3 = 1500; // Inizio rilevamento
 
+const byte chPin = A1; // PIN interruttore generale
+
 // Variabili per autocalibrazione 0
 const byte chPin2 = 2; // PIN per la calibrazione alettone
 int mid_point2 = 1500;
@@ -54,9 +57,9 @@ void setup() {
   // della dichiarazione dell'ogetto.
 right.Invert();
 codadx.Invert();
-
   // HI -> LOW --> LOW -> HI
   // per avere 2 LED che lampeggiano alternativamente
+
     // Funzione relativa a calibrazione con pulsein:
     //mid_point2 =  calibraTrim(chPin2) ; // Calibrazione del TRIM attivo sul canale
     //mid_point3 =  calibraTrim(chPin3) ; // Calibrazione del TRIM attivo sul canale
